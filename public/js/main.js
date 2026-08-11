@@ -7996,7 +7996,7 @@
       );
       if (sentBtn) sentBtn.textContent = tr(copy.sentBtn);
       if (sentEls.title) {
-        sentEls.title.textContent = tr("We'll notify you when your deposits arrive");
+        sentEls.title.textContent = tr("We'll notify you when deposits you've made arrive");
       }
       if (sentEls.sub) {
         const destination = formatWithdrawDestinationLabel(bankData.bankName);
@@ -8008,7 +8008,7 @@
       if (sentPanel) {
         sentPanel.setAttribute(
           "aria-label",
-          tr("We'll notify you when your deposits arrives"),
+          tr("We'll notify you when deposits you've made arrive"),
         );
       }
     };

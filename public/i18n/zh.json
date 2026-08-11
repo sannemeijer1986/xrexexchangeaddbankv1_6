@@ -984,7 +984,7 @@
   "Don't use counter transfers, Taiwan Pay, LINE Pay, JKoPay, ATM. They can't reach us and will be returned, sometimes with a fee.": "請勿使用臨櫃匯款、Taiwan Pay、LINE Pay、JKoPay、ATM。這些方式無法匯入且將被退回，有時可能產生手續費。",
   "Usually arrives within 1 hour after sending.": "通常於匯款後 1 小時內到帳。",
   "Often sooner. We'll notify you the moment your deposit arrives. Start with any amount, and you can withdraw whenever you like.": "通常會更快到帳。到帳當下我們會立即通知您。任意金額即可開始，且可隨時出金。",
-  "We'll notify you when your deposits arrive": "到帳後我們會通知您",
+  "We'll notify you when deposits you've made arrive": "您已匯出的入金到帳後，我們會通知您",
   "Before depositing USD": "入金 USD 前",
   "Send USD from your linked {destination}": "從您已綁定的 {destination} 匯款 USD",
   "View detailed guide": "查看詳細指南",
