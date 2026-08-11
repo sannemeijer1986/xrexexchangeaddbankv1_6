@@ -3234,10 +3234,7 @@ html[data-active-tab="wallet"] {
 }
 
 .twd-first-time-deposit__consent-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-bottom: 12px;
+  display: none;
 }
 
 .twd-first-time-deposit__consent {
@@ -3342,8 +3339,9 @@ html[data-active-tab="wallet"] {
   flex: 1 1 auto;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
+  align-items: center;
 }
 
 .twd-deposit-guide-panel__step {
@@ -3443,6 +3441,7 @@ html[data-active-tab="wallet"] {
 
 .twd-deposit-guide-panel__btn {
   flex: 1 1 0;
+  min-width: 0;
   height: 48px;
   border: 0;
   border-radius: 16px;
@@ -3452,12 +3451,11 @@ html[data-active-tab="wallet"] {
 }
 
 .twd-deposit-guide-panel__btn--secondary {
-  display: none;
+  background: #2d2f2f;
+  color: #ffffff;
 }
 
 .twd-deposit-guide-panel__btn--primary {
-  flex: 1 1 100%;
-  width: 100%;
   background: #275cfd;
   color: #ffffff;
 }
@@ -3790,6 +3788,10 @@ html[data-active-tab="wallet"] {
   padding-bottom: 8px;
 }
 
+.twd-deposit-instructions__trust-row--static {
+  cursor: default;
+}
+
 .twd-deposit-instructions__trust-value-group {
   display: flex;
   flex-direction: column;
@@ -3803,6 +3805,7 @@ html[data-active-tab="wallet"] {
   font-size: 12px;
   font-weight: 600;
   line-height: normal;
+  display: none;
   color: #8fb8ff;
 }
 
@@ -3863,6 +3866,10 @@ html[data-active-tab="wallet"] {
   color: #fff;
 }
 
+.twd-deposit-instructions__arrival-title-highlight {
+  color: #5ac47d;
+}
+
 .twd-deposit-instructions__arrival-subtitle {
   margin: 0;
   font-size: 14px;
@@ -3873,7 +3880,7 @@ html[data-active-tab="wallet"] {
 
 .twd-deposit-instructions__arrival-subtitle-highlight {
   font-weight: 600;
-  color: #5AC47D;
+  color: #5ac47d;
 }
 
 .twd-deposit-instructions__help {
@@ -4246,6 +4253,7 @@ html[data-active-tab="wallet"] {
   font-weight: 600;
   line-height: normal;
   color: #8fb8ff;
+  display: none;
 }
 
 // Fiat deposit / withdrawal placeholder (verified bank selected from add/send)

@@ -7644,14 +7644,27 @@
     const FIAT_DEPOSIT_COPY = {
       twd: {
         beforeTitle: "Before depositing TWD",
-        cardBankTitle: "Only send TWD from your {destination}",
+        cardBankTitle: "Send TWD from your linked {destination}",
         cardDescs: [
           null,
           "No counter transfers, Taiwan Pay, LINE Pay, JKoPay, ATM.",
           null,
+          null,
         ],
-        cardTitles: [null, "Only send via online banking", null],
-        guideLink: "See step-by-step guide",
+        cardTitles: [
+          null,
+          "Only send via online banking",
+          "Never share your deposit details with others",
+          null,
+        ],
+        cardIcons: [
+          "assets/gfx_firstdepo_yourbank_twd.svg",
+          "assets/gfx_firstdepo_methods.svg",
+          "assets/gfx_privacy.svg",
+          "assets/gfx_firstdepo_clock.svg",
+        ],
+        guideLink: "View detailed guide",
+        continueBtn: "Understood, continue",
         consent:
           "I will only send TWD from my {destination} via {onlineBanking}",
         howToTitle: "How to deposit TWD",
@@ -7664,13 +7677,26 @@
         helpItems: ["Walk me through it", "Contact live support"],
         helpDescs: ["See step-by-step guide", "We are happy to help you"],
         linkedIcon: "assets/gfx_firstdepo_yourbank_twd.svg",
+        arrivalTitleKey: "Usually arrives instantly, may take longer.",
       },
       usd: {
         beforeTitle: "Before depositing USD",
         cardBankTitle: "Send USD from your linked {destination}",
-        cardDescs: [null, null, null],
-        cardTitles: [null, "Only send via online banking", null],
+        cardDescs: [null, null, null, null],
+        cardTitles: [
+          null,
+          "Only send via online banking",
+          "Never share your deposit details with others",
+          null,
+        ],
+        cardIcons: [
+          "assets/illu_bank_USD.svg",
+          "assets/gfx_firstdepo_methods.svg",
+          "assets/gfx_privacy.svg",
+          "assets/gfx_firstdepo_clock.svg",
+        ],
         guideLink: "View detailed guide",
+        continueBtn: "Understood, continue",
         consent:
           "I will only send USD from my {destination} via {onlineBanking}",
         howToTitle: "How to deposit USD",
@@ -7683,6 +7709,7 @@
         helpItems: ["Walk me through it", "Contact live support"],
         helpDescs: ["View detailed guide", "Our team is here to assist"],
         linkedIcon: "assets/illu_bank_USD.svg",
+        arrivalTitleKey: "Usually arrives within 1 hour.",
       },
     };
 
@@ -7762,10 +7789,13 @@
           destination,
         });
       }
-      const cardIcon = firstTimePanel?.querySelector(
+      const cardIcons = firstTimePanel?.querySelectorAll(
         ".twd-first-time-deposit__card-icon",
       );
-      if (cardIcon) cardIcon.setAttribute("src", copy.linkedIcon);
+      cardIcons?.forEach((icon, index) => {
+        const src = copy.cardIcons?.[index];
+        if (src) icon.setAttribute("src", src);
+      });
       if (firstTimeEls.consentCopy) {
         const marker = "{{DESTINATION}}";
         const consentTemplate = tr(copy.consent, {
@@ -7798,7 +7828,7 @@
       firstTimePanel
         ?.querySelectorAll(".twd-first-time-deposit__card-desc")
         .forEach((el, index) => {
-          if (index === 2) return;
+          if (index === 3) return;
           const key = copy.cardDescs[index];
           if (key) {
             el.textContent = tr(key);
@@ -7812,8 +7842,8 @@
         ?.querySelectorAll(".twd-first-time-deposit__card-title")
         .forEach((el, index) => {
           if (index === 0) return;
-          if (index === 2) {
-            el.innerHTML = `${tr("Usually arrives within 1 hour after sending.")} <span class="twd-first-time-deposit__card-title-highlight">${tr("No deposit fee.")}</span>`;
+          if (index === 3) {
+            el.innerHTML = `${tr(copy.arrivalTitleKey)} <span class="twd-first-time-deposit__card-title-highlight">${tr("No deposit fee.")}</span>`;
             return;
           }
           const key = copy.cardTitles[index];
@@ -7829,32 +7859,14 @@
         );
       }
       if (firstTimeEls.continueBtn) {
-        firstTimeEls.continueBtn.textContent = tr("Show deposit details");
+        firstTimeEls.continueBtn.textContent = tr(copy.continueBtn);
       }
       syncFirstTimeConsentUi();
     };
 
     const syncFirstTimeConsentUi = () => {
-      const icon = firstTimeEls.consentBtn?.querySelector(
-        ".twd-first-time-deposit__consent-icon",
-      );
-      if (icon) {
-        icon.src = firstTimeConsentChecked
-          ? "assets/icon_checkbox_on.svg"
-          : "assets/icon_checkbox_off.svg";
-      }
-      firstTimeEls.consentBtn?.setAttribute(
-        "aria-pressed",
-        firstTimeConsentChecked ? "true" : "false",
-      );
-      if (firstTimeEls.consentHint) {
-        firstTimeEls.consentHint.classList.toggle(
-          "twd-first-time-deposit__consent-hint--checked",
-          firstTimeConsentChecked,
-        );
-      }
       if (firstTimeEls.continueBtn) {
-        firstTimeEls.continueBtn.disabled = !firstTimeConsentChecked;
+        firstTimeEls.continueBtn.disabled = false;
       }
     };
 
@@ -7936,7 +7948,7 @@
       instructionsPanel
         ?.querySelectorAll(".twd-deposit-instructions__trust-label")
         .forEach((el, index) => {
-          const keys = ["Bank", "Account No.", "Branch", "Account name"];
+          const keys = ["Bank", "Account No.", "Account name"];
           if (keys[index]) el.textContent = tr(keys[index]);
         });
       const shareBtn = instructionsPanel?.querySelector(
@@ -7947,15 +7959,13 @@
         ".twd-deposit-instructions__arrival-title",
       );
       if (arrivalTitle) {
-        arrivalTitle.textContent = tr(
-          "Usually arrives within 1 hour after sending",
-        );
+        arrivalTitle.innerHTML = `${tr(copy.arrivalTitleKey)} <span class="twd-deposit-instructions__arrival-title-highlight">${tr("No deposit fee.")}</span>`;
       }
       const arrivalSubtitle = instructionsPanel?.querySelector(
         ".twd-deposit-instructions__arrival-subtitle",
       );
       if (arrivalSubtitle) {
-        arrivalSubtitle.innerHTML = `<span class="twd-deposit-instructions__arrival-subtitle-highlight">${tr("No deposit fee.")}</span> ${tr("We'll notify you when it lands.")}`;
+        arrivalSubtitle.textContent = tr("We'll notify you when it lands.");
       }
       const helpTitle = instructionsPanel?.querySelector(
         ".twd-deposit-instructions__help-title",
@@ -8059,7 +8069,7 @@
     const openFirstTimeDeposit = ({ backTarget = "select" } = {}) => {
       closeDepositInstructions({ instant: true });
       instructionsBackTarget = backTarget;
-      firstTimeConsentChecked = false;
+      firstTimeConsentChecked = true;
       syncFirstTimeDepositUi();
       setPanelOpen(firstTimePanel, true);
     };
@@ -8235,16 +8245,22 @@
           visual: "assets/Illu_depositintro_2.svg",
         },
         {
-          titleHighlight: true,
-          desc: "Often sooner. We'll notify you the moment your deposit arrives. Start with any amount, and you can withdraw whenever you like.",
+          title: "Never share your deposit details with others",
+          desc: "Your account is for your deposits only. Money sent by other people will be rejected and returned. This keeps your account safe and compliant.",
           visual: "assets/Illu_depositintro_3.svg",
+        },
+        {
+          titleHighlight: true,
+          titleHighlightKey: "Usually arrives instantly, may take longer.",
+          desc: "Often sooner. We'll notify you the moment your deposit arrives. Start with any amount, and you can withdraw whenever you like.",
+          visual: "assets/Illu_depositintro_4.svg",
         },
       ];
       const usdSlides = [
         {
           titleKey: "Send USD from your linked {destination}",
           descKey:
-            "Use KGI Bank's online banking website or app. Money sent from any other account will be returned, sometimes with a fee.",
+            "Send from your linked KGI account •••• 8999 — use KGI's online banking website or app. Money sent from any other account will be returned, sometimes with a fee.",
           dynamicDestination: true,
           visual: "assets/Illu_depositintro_1.svg",
         },
@@ -8255,9 +8271,15 @@
           visual: "assets/Illu_depositintro_2.svg",
         },
         {
-          titleHighlight: true,
-          desc: "Often sooner. We'll notify you the moment your deposit arrives. Start with any amount, and you can withdraw whenever you like.",
+          title: "Never share your deposit details with others",
+          desc: "Your account is for your deposits only. Money sent by other people will be rejected and returned. This keeps your account safe and compliant.",
           visual: "assets/Illu_depositintro_3.svg",
+        },
+        {
+          titleHighlight: true,
+          titleHighlightKey: "Usually arrives within 1 hour.",
+          desc: "Often sooner. We'll notify you the moment your deposit arrives. Start with any amount, and you can withdraw whenever you like.",
+          visual: "assets/Illu_depositintro_4.svg",
         },
       ];
       let activeStep = 0;
@@ -8275,7 +8297,11 @@
         );
         if (titleEl) {
           if (slide.titleHighlight) {
-            titleEl.innerHTML = `${tr("Usually arrives within 1 hour after sending.")} <span class="twd-deposit-guide-panel__title-highlight">${tr("No deposit fee.")}</span>`;
+            const lead = tr(
+              slide.titleHighlightKey ||
+                "Usually arrives instantly, may take longer.",
+            );
+            titleEl.innerHTML = `${lead} <span class="twd-deposit-guide-panel__title-highlight">${tr("No deposit fee.")}</span>`;
           } else if (slide.titleKey) {
             titleEl.textContent = slide.dynamicDestination
               ? tr(slide.titleKey, { destination })
@@ -8298,6 +8324,9 @@
         if (nextBtn) {
           nextBtn.textContent =
             safe === slides.length - 1 ? tr("Done") : tr("Next");
+        }
+        if (backBtn) {
+          backBtn.textContent = tr("Back");
         }
       };
 
@@ -8493,7 +8522,6 @@
         twdDepositGuidePanel.open(depositFlowCurrency);
       });
     firstTimeEls.continueBtn?.addEventListener("click", () => {
-      if (firstTimeEls.continueBtn?.disabled) return;
       setPrototypeFirstTimeDepositCompleted(depositFlowCurrency);
       openDepositInstructions({ backTarget: "direct" });
     });
@@ -8526,8 +8554,18 @@
       });
     };
 
+    const isPrototypeDepositCopyReminderEnabled = () => {
+      const input = document.querySelector(
+        "[data-prototype-deposit-copy-reminder]",
+      );
+      return Boolean(input?.checked);
+    };
+
     const maybeOpenCopyReminderSheet = (row) => {
-      if (row?.getAttribute("data-twd-deposit-copy") === "account") {
+      if (
+        row?.getAttribute("data-twd-deposit-copy") === "account" &&
+        isPrototypeDepositCopyReminderEnabled()
+      ) {
         twdDepositCopyReminderSheet.open();
       }
     };
@@ -8544,7 +8582,9 @@
       ?.querySelector("[data-twd-deposit-instructions-share-all]")
       ?.addEventListener("click", () => {
         showSnackbar(tr("All details copied to clipboard"), { variant: "copy" });
-        twdDepositCopyReminderSheet.open();
+        if (isPrototypeDepositCopyReminderEnabled()) {
+          twdDepositCopyReminderSheet.open();
+        }
       });
     instructionsPanel
       ?.querySelector("[data-twd-deposit-instructions-see-limits]")

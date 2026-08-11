@@ -4247,7 +4247,7 @@
                             <img class="twd-first-time-deposit__card-icon" src="assets/gfx_firstdepo_yourbank_twd.svg" alt="" width="32" height="32" />
                         </div>
                         <div class="twd-first-time-deposit__card-copy">
-                            <p class="twd-first-time-deposit__card-title" data-twd-first-time-card-bank-title>Only send TWD from your KGI Bank account •••• 8999</p>
+                            <p class="twd-first-time-deposit__card-title" data-twd-first-time-card-bank-title>Send TWD from your linked KGI Bank account •••• 8999</p>
                             <p class="twd-first-time-deposit__card-desc" hidden>Money from any other account is returned, sometimes with a fee.</p>
                         </div>
                     </article>
@@ -4258,7 +4258,17 @@
                         </div>
                         <div class="twd-first-time-deposit__card-copy">
                             <p class="twd-first-time-deposit__card-title">Only send via online banking</p>
-                            <p class="twd-first-time-deposit__card-desc" hidden>No counter transfers, Taiwan Pay, LINE Pay, JKoPay, ATM.</p>
+                            <p class="twd-first-time-deposit__card-desc">No counter transfers, Taiwan Pay, LINE Pay, JKoPay, ATM.</p>
+                        </div>
+                    </article>
+                    <div class="twd-first-time-deposit__card-divider" aria-hidden="true"></div>
+                    <article class="twd-first-time-deposit__card">
+                        <div class="twd-first-time-deposit__card-icon-wrap" aria-hidden="true">
+                            <img class="twd-first-time-deposit__card-icon" src="assets/gfx_privacy.svg" alt="" width="32" height="32" />
+                        </div>
+                        <div class="twd-first-time-deposit__card-copy">
+                            <p class="twd-first-time-deposit__card-title">Never share your deposit details with others</p>
+                            <p class="twd-first-time-deposit__card-desc" hidden></p>
                         </div>
                     </article>
                     <div class="twd-first-time-deposit__card-divider" aria-hidden="true"></div>
@@ -4267,25 +4277,25 @@
                             <img class="twd-first-time-deposit__card-icon" src="assets/gfx_firstdepo_clock.svg" alt="" width="32" height="32" />
                         </div>
                         <div class="twd-first-time-deposit__card-copy">
-                            <p class="twd-first-time-deposit__card-title">Usually arrives within 1 hour after sending. <span class="twd-first-time-deposit__card-title-highlight">No deposit fee.</span></p>
+                            <p class="twd-first-time-deposit__card-title">Usually arrives instantly, may take longer. <span class="twd-first-time-deposit__card-title-highlight">No deposit fee.</span></p>
                             <p class="twd-first-time-deposit__card-desc" hidden></p>
                         </div>
                     </article>
                 </div>
                 <button class="twd-first-time-deposit__guide-link" type="button" data-twd-first-time-deposit-guide>
-                    <span>See step-by-step guide</span>
+                    <span>View detailed guide</span>
                     <img src="assets/icon_deposit_chevronblue.svg" alt="" width="20" height="20" aria-hidden="true" />
                 </button>
                 </div>
                 <footer class="twd-first-time-deposit__footer">
-                    <div class="twd-first-time-deposit__consent-wrap">
+                    <div class="twd-first-time-deposit__consent-wrap" hidden>
                         <button class="twd-first-time-deposit__consent" type="button" data-twd-first-time-deposit-consent aria-pressed="false">
                             <img class="twd-first-time-deposit__consent-icon" src="assets/icon_checkbox_off.svg" alt="" width="24" height="24" aria-hidden="true" />
                             <span class="twd-first-time-deposit__consent-copy" data-twd-first-time-deposit-consent-copy>I&rsquo;ll only send TWD from my <span class="twd-first-time-deposit__consent-highlight">KGI Bank account •••• 8999</span> via <span class="twd-first-time-deposit__consent-highlight">online banking</span></span>
                         </button>
                         <p class="twd-first-time-deposit__consent-hint" data-twd-first-time-deposit-hint>Check the box above to continue</p>
                     </div>
-                    <button class="twd-first-time-deposit__continue schedule-time-sheet__btn schedule-time-sheet__btn--primary" type="button" data-twd-first-time-deposit-continue disabled>Show deposit details</button>
+                    <button class="twd-first-time-deposit__continue schedule-time-sheet__btn schedule-time-sheet__btn--primary" type="button" data-twd-first-time-deposit-continue>Understood, continue</button>
                 </footer>
             </div>
         </section>
@@ -4353,15 +4363,7 @@
                                 <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
                             </button>
                             <div class="twd-deposit-instructions__trust-divider" aria-hidden="true"></div>
-                            <button class="twd-deposit-instructions__trust-row" type="button" data-twd-deposit-copy="branch" aria-label="Copy branch">
-                                <div class="twd-deposit-instructions__trust-field">
-                                    <span class="twd-deposit-instructions__trust-label">Branch</span>
-                                    <span class="twd-deposit-instructions__trust-value" data-twd-deposit-instructions-trust-branch>營業部 (0012)</span>
-                                </div>
-                                <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
-                            </button>
-                            <div class="twd-deposit-instructions__trust-divider" aria-hidden="true"></div>
-                            <button class="twd-deposit-instructions__trust-row twd-deposit-instructions__trust-row--account-name" type="button" data-twd-deposit-copy="accountName" aria-label="Copy account name">
+                            <div class="twd-deposit-instructions__trust-row twd-deposit-instructions__trust-row--account-name twd-deposit-instructions__trust-row--static">
                                 <div class="twd-deposit-instructions__trust-field">
                                     <span class="twd-deposit-instructions__trust-label">Account name</span>
                                     <div class="twd-deposit-instructions__trust-value-group">
@@ -4369,8 +4371,7 @@
                                         <p class="twd-deposit-instructions__trust-note" data-twd-deposit-instructions-trust-note>XREX&rsquo;s trust account at Far Eastern Bank</p>
                                     </div>
                                 </div>
-                                <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
-                            </button>
+                            </div>
                         </div>
                         <button class="twd-deposit-instructions__share-btn" type="button" data-twd-deposit-instructions-share-all>
                             <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
@@ -4385,8 +4386,8 @@
                     </div>
                     <div class="twd-deposit-instructions__arrival-card">
                         <div class="twd-deposit-instructions__arrival-copy">
-                            <p class="twd-deposit-instructions__arrival-title">Usually arrives within 1 hour after sending</p>
-                            <p class="twd-deposit-instructions__arrival-subtitle"><span class="twd-deposit-instructions__arrival-subtitle-highlight">No deposit fee.</span> We&rsquo;ll notify you when it lands.</p>
+                            <p class="twd-deposit-instructions__arrival-title">Usually arrives instantly, may take longer. <span class="twd-deposit-instructions__arrival-title-highlight">No deposit fee.</span></p>
+                            <p class="twd-deposit-instructions__arrival-subtitle">We&rsquo;ll notify you when it lands.</p>
                         </div>
                         <div class="twd-deposit-instructions__card-icon-wrap" aria-hidden="true">
                             <img class="twd-deposit-instructions__arrival-icon" src="assets/gfx_firstdepo_clock.svg" alt="" width="32" height="32" />
@@ -4453,6 +4454,7 @@
                     <span class="twd-deposit-guide-panel__step is-active" data-twd-deposit-guide-step="1"></span>
                     <span class="twd-deposit-guide-panel__step" data-twd-deposit-guide-step="2"></span>
                     <span class="twd-deposit-guide-panel__step" data-twd-deposit-guide-step="3"></span>
+                    <span class="twd-deposit-guide-panel__step" data-twd-deposit-guide-step="4"></span>
                 </div>
                 <button class="twd-deposit-guide-panel__help" type="button" aria-label="Support">
                     <img src="assets/icon_intercom.svg" alt="" width="24" height="24" />
@@ -4469,7 +4471,7 @@
             </div>
             <div class="twd-deposit-guide-panel__footer">
                 <button class="twd-deposit-guide-panel__btn twd-deposit-guide-panel__btn--secondary"
-                    type="button" data-twd-deposit-guide-back hidden aria-hidden="true" tabindex="-1">Back</button>
+                    type="button" data-twd-deposit-guide-back>Back</button>
                 <button class="twd-deposit-guide-panel__btn twd-deposit-guide-panel__btn--primary"
                     type="button" data-twd-deposit-guide-next>Next</button>
             </div>
@@ -9425,6 +9427,13 @@ When your reserved funds run out, we'll automatically pre-fund again to keep you
                         <input type="checkbox" data-prototype-usd-deposit-instr-reached
                             aria-label="USD deposit instructions reached" />
                         <span>USD deposit instr. reached</span>
+                    </label>
+                </div>
+                <div class="build-badge__section-row">
+                    <label class="build-badge__checkbox">
+                        <input type="checkbox" data-prototype-deposit-copy-reminder
+                            aria-label="Deposit copy reminder bottom sheet" />
+                        <span>Deposit copy reminder sheet</span>
                     </label>
                 </div>
             </div>
