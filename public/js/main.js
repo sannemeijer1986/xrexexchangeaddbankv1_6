@@ -8332,7 +8332,7 @@
             safe === slides.length - 1 ? tr("Done") : tr("Next");
         }
         if (backBtn) {
-          backBtn.textContent = tr("Back");
+          backBtn.textContent = safe === 0 ? tr("Close") : tr("Back");
         }
       };
 
