@@ -4984,14 +4984,18 @@ html[data-active-tab="wallet"] {
 
 .fiat-withdraw-confirm__footer {
   flex-shrink: 0;
+  display: flex;
+  gap: 16px;
   padding: 16px;
   padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   background: #0d0e0f;
-}
 
-.fiat-withdraw-confirm__footer .schedule-time-sheet__btn {
-  width: 100%;
+  .schedule-time-sheet__btn {
+    flex: 1;
+    width: auto;
+    height: 48px;
+  }
 }
 
 // Fiat withdraw 2FA — Figma 8121:57349 (nested slide over confirm)

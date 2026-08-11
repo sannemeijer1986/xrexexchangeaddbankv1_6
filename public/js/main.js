@@ -6995,8 +6995,15 @@
       if (confirmEls.fee) confirmEls.fee.textContent = feeLabel;
       if (confirmEls.total) confirmEls.total.textContent = totalLabel;
       if (confirmEls.submit) {
-        confirmEls.submit.textContent = tr("Withdraw {amount}", { amount: amountLabel });
+        confirmEls.submit.textContent = tr("Withdraw");
       }
+      confirmPanel
+        ?.querySelectorAll("[data-fiat-withdraw-confirm-back]")
+        .forEach((btn) => {
+          if (btn.tagName === "BUTTON" && btn.classList.contains("schedule-time-sheet__btn")) {
+            btn.textContent = tr("Back");
+          }
+        });
 
       const bankName = bankData.bankName;
       if (confirmEls.bankName) confirmEls.bankName.textContent = bankName;
@@ -7404,10 +7411,9 @@
       setConfirmOpen(true);
     });
 
-    confirmPanel?.querySelector("[data-fiat-withdraw-confirm-back]")?.addEventListener(
-      "click",
-      () => setConfirmOpen(false),
-    );
+    confirmPanel?.querySelectorAll("[data-fiat-withdraw-confirm-back]").forEach((btn) => {
+      btn.addEventListener("click", () => setConfirmOpen(false));
+    });
     confirmPanel
       ?.querySelector('[aria-label="Support"]')
       ?.addEventListener("click", () => showSnackbar("Not in prototype"));
