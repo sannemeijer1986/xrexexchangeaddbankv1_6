@@ -7669,7 +7669,7 @@
           "I will only send TWD from my {destination} via {onlineBanking}",
         howToTitle: "How to deposit TWD",
         step1Title: "Send TWD from your linked bank account via online banking",
-        sentBtn: "I have sent TWD",
+        sentBtn: "Done",
         sentSub:
           "After you transfer TWD from {destination} to XREX, your deposit usually arrives within 1 hour.",
         limitLink: "View your limits",
@@ -7701,7 +7701,7 @@
           "I will only send USD from my {destination} via {onlineBanking}",
         howToTitle: "How to deposit USD",
         step1Title: "Send USD from your linked KGI Bank account via online banking",
-        sentBtn: "I have sent USD",
+        sentBtn: "Done",
         sentSub:
           "After you transfer USD from {destination} to XREX, your deposit usually arrives within 1 hour.",
         limitLink: "View limits",
@@ -7965,7 +7965,7 @@
         ".twd-deposit-instructions__arrival-subtitle",
       );
       if (arrivalSubtitle) {
-        arrivalSubtitle.textContent = tr("We'll notify you when it lands.");
+        arrivalSubtitle.textContent = tr("We'll notify you the moment your deposit arrives.");
       }
       const helpTitle = instructionsPanel?.querySelector(
         ".twd-deposit-instructions__help-title",
