@@ -4212,8 +4212,8 @@
                             <span class="twd-deposit-select__item-copy">
                                 <span class="twd-deposit-select__item-title">My CTBC bank</span>
                                 <span class="twd-deposit-select__item-meta">
-                                    <span>Bank Name : CTBC Bank</span>
-                                    <span>Account number : 12345678999</span>
+                                    <span>CTBC Bank</span>
+                                    <span>12345678999</span>
                                 </span>
                                 <span class="twd-deposit-select__item-status twd-deposit-select__item-status--verified" data-twd-deposit-status>Verified</span>
                             </span>
@@ -4242,7 +4242,7 @@
                 <div class="twd-first-time-deposit__scroll">
                     <h1 class="twd-first-time-deposit__title">Before depositing TWD</h1>
                     <div class="twd-first-time-deposit__cards">
-                    <article class="twd-first-time-deposit__card">
+                    <article class="twd-first-time-deposit__card" data-twd-first-time-card>
                         <div class="twd-first-time-deposit__card-icon-wrap" aria-hidden="true">
                             <img class="twd-first-time-deposit__card-icon" src="assets/gfx_firstdepo_yourbank_twd.svg" alt="" width="32" height="32" />
                         </div>
@@ -4251,8 +4251,8 @@
                             <p class="twd-first-time-deposit__card-desc" hidden>Money from any other account is returned, sometimes with a fee.</p>
                         </div>
                     </article>
-                    <div class="twd-first-time-deposit__card-divider" aria-hidden="true"></div>
-                    <article class="twd-first-time-deposit__card">
+                    <div class="twd-first-time-deposit__card-divider" data-twd-first-time-card-divider aria-hidden="true"></div>
+                    <article class="twd-first-time-deposit__card" data-twd-first-time-card>
                         <div class="twd-first-time-deposit__card-icon-wrap" aria-hidden="true">
                             <img class="twd-first-time-deposit__card-icon" src="assets/gfx_firstdepo_methods.svg" alt="" width="32" height="32" />
                         </div>
@@ -4261,8 +4261,8 @@
                             <p class="twd-first-time-deposit__card-desc">No counter transfers, Taiwan Pay, LINE Pay, JKoPay, ATM.</p>
                         </div>
                     </article>
-                    <div class="twd-first-time-deposit__card-divider" aria-hidden="true"></div>
-                    <article class="twd-first-time-deposit__card">
+                    <div class="twd-first-time-deposit__card-divider" data-twd-first-time-card-divider aria-hidden="true"></div>
+                    <article class="twd-first-time-deposit__card" data-twd-first-time-card>
                         <div class="twd-first-time-deposit__card-icon-wrap" aria-hidden="true">
                             <img class="twd-first-time-deposit__card-icon" src="assets/gfx_privacy.svg" alt="" width="32" height="32" />
                         </div>
@@ -4271,13 +4271,23 @@
                             <p class="twd-first-time-deposit__card-desc" hidden></p>
                         </div>
                     </article>
-                    <div class="twd-first-time-deposit__card-divider" aria-hidden="true"></div>
-                    <article class="twd-first-time-deposit__card">
+                    <div class="twd-first-time-deposit__card-divider" data-twd-first-time-card-divider aria-hidden="true"></div>
+                    <article class="twd-first-time-deposit__card" data-twd-first-time-card>
                         <div class="twd-first-time-deposit__card-icon-wrap" aria-hidden="true">
                             <img class="twd-first-time-deposit__card-icon" src="assets/gfx_firstdepo_clock.svg" alt="" width="32" height="32" />
                         </div>
                         <div class="twd-first-time-deposit__card-copy">
                             <p class="twd-first-time-deposit__card-title">Usually arrives instantly, may take longer. <span class="twd-first-time-deposit__card-title-highlight">No deposit fee.</span></p>
+                            <p class="twd-first-time-deposit__card-desc" hidden></p>
+                        </div>
+                    </article>
+                    <div class="twd-first-time-deposit__card-divider" data-twd-first-time-card-divider hidden aria-hidden="true"></div>
+                    <article class="twd-first-time-deposit__card" data-twd-first-time-card hidden>
+                        <div class="twd-first-time-deposit__card-icon-wrap" aria-hidden="true">
+                            <img class="twd-first-time-deposit__card-icon" src="assets/illu_within1hour.svg" alt="" width="32" height="32" />
+                        </div>
+                        <div class="twd-first-time-deposit__card-copy">
+                            <p class="twd-first-time-deposit__card-title">Usually arrives in 1–3 business days.</p>
                             <p class="twd-first-time-deposit__card-desc" hidden></p>
                         </div>
                     </article>
@@ -4291,13 +4301,91 @@
                     <div class="twd-first-time-deposit__consent-wrap" hidden>
                         <button class="twd-first-time-deposit__consent" type="button" data-twd-first-time-deposit-consent aria-pressed="false">
                             <img class="twd-first-time-deposit__consent-icon" src="assets/icon_checkbox_off.svg" alt="" width="24" height="24" aria-hidden="true" />
-                            <span class="twd-first-time-deposit__consent-copy" data-twd-first-time-deposit-consent-copy>I&rsquo;ll only send TWD from my <span class="twd-first-time-deposit__consent-highlight">KGI Bank account •••• 8999</span> via <span class="twd-first-time-deposit__consent-highlight">online banking</span></span>
+                            <span class="twd-first-time-deposit__consent-copy" data-twd-first-time-deposit-consent-copy>Optional checkbox: Current &ldquo;Cayman&rdquo; has a confirmation sheet with T&amp;C.</span>
                         </button>
                         <p class="twd-first-time-deposit__consent-hint" data-twd-first-time-deposit-hint>Check the box above to continue</p>
                     </div>
                     <button class="twd-first-time-deposit__continue schedule-time-sheet__btn schedule-time-sheet__btn--primary" type="button" data-twd-first-time-deposit-continue>Understood, continue</button>
                 </footer>
             </div>
+        </section>
+
+        <section class="cayman-usd-deposit-amount" data-cayman-usd-deposit-amount hidden aria-label="Deposit USD">
+            <header class="cayman-usd-deposit-amount__header">
+                <div class="cayman-usd-deposit-amount__header-left">
+                    <button class="cayman-usd-deposit-amount__icon-btn" type="button" data-cayman-usd-deposit-amount-back aria-label="Back">
+                        <img src="assets/icon_back.svg" alt="" width="24" height="24" />
+                    </button>
+                    <h1 class="cayman-usd-deposit-amount__title" data-cayman-usd-deposit-amount-title>Deposit USD</h1>
+                </div>
+                <button class="cayman-usd-deposit-amount__icon-btn" type="button" aria-label="Support">
+                    <img src="assets/icon_intercom.svg" alt="" width="24" height="24" />
+                </button>
+            </header>
+            <div class="cayman-usd-deposit-amount__divider" aria-hidden="true"></div>
+            <div class="cayman-usd-deposit-amount__scroll">
+                <div class="cayman-usd-deposit-amount__top">
+                    <p class="cayman-usd-deposit-amount__lead" data-cayman-usd-deposit-amount-lead>How much USD do you want to deposit to XREX?</p>
+                    <section class="cayman-usd-deposit-amount__amount-section" aria-label="Deposit amount">
+                        <div class="plan-buffer-funding-input__head">
+                            <div class="plan-buffer-funding-input__title">Amount</div>
+                        </div>
+                        <div class="plan-buffer-funding-input cayman-usd-deposit-amount__amount-input">
+                            <div class="plan-buffer-funding-input__row cayman-usd-deposit-amount__amount-row">
+                                <div class="plan-buffer-funding-input__left">
+                                    <img class="plan-buffer-funding-input__icon" src="assets/icon_currency_USD.svg" width="32" height="32" alt="" data-cayman-usd-deposit-amount-icon />
+                                    <div class="cayman-usd-deposit-amount__amount-input-wrap">
+                                        <input
+                                            class="plan-buffer-funding-input__field"
+                                            type="text"
+                                            inputmode="decimal"
+                                            autocomplete="off"
+                                            placeholder="0"
+                                            aria-label="Deposit amount"
+                                            data-cayman-usd-deposit-amount-input
+                                        />
+                                        <span class="plan-buffer-funding-input__hint" data-cayman-usd-deposit-amount-hint>Min 8.00 / Max 300.00</span>
+                                    </div>
+                                </div>
+                                <div class="plan-buffer-funding-input__cur" data-cayman-usd-deposit-amount-currency aria-hidden="true">USD</div>
+                            </div>
+                            <div class="plan-buffer-funding-input__divider"></div>
+                            <div class="plan-buffer-funding-input__max-row cayman-usd-deposit-amount__error-row">
+                                <p class="cayman-usd-deposit-amount__amount-error" data-cayman-usd-deposit-amount-amount-error aria-hidden="true">Minimum amount is 8.00 USD</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="cayman-usd-deposit-amount__summary">
+                    <div class="cayman-usd-deposit-amount__summary-row">
+                        <span class="cayman-usd-deposit-amount__summary-label">
+                            <span data-cayman-usd-deposit-amount-label-remaining-limit>Remaining limit</span>
+                            <button class="cayman-usd-deposit-amount__limit-info" type="button" aria-label="About remaining limit" data-cayman-usd-deposit-amount-limit-info>
+                                <img src="assets/icon_info_circle_gray.svg" alt="" width="12" height="12" aria-hidden="true" />
+                            </button>
+                        </span>
+                        <span class="cayman-usd-deposit-amount__summary-value" data-cayman-usd-deposit-amount-remaining-limit>17,321.41 USD</span>
+                    </div>
+                    <div class="cayman-usd-deposit-amount__summary-row">
+                        <span class="cayman-usd-deposit-amount__summary-label" data-cayman-usd-deposit-amount-label-arrival>Estimated arrival</span>
+                        <span class="cayman-usd-deposit-amount__summary-value" data-cayman-usd-deposit-amount-arrival>1–3 business days</span>
+                    </div>
+                    <div class="cayman-usd-deposit-amount__summary-row">
+                        <span class="cayman-usd-deposit-amount__summary-label" data-cayman-usd-deposit-amount-label-fee>Fee</span>
+                        <span class="cayman-usd-deposit-amount__summary-value" data-cayman-usd-deposit-amount-fee>0.05%</span>
+                    </div>
+                    <div class="cayman-usd-deposit-amount__summary-total">
+                        <div class="cayman-usd-deposit-amount__summary-divider" aria-hidden="true"></div>
+                        <div class="cayman-usd-deposit-amount__summary-row cayman-usd-deposit-amount__summary-row--total">
+                            <span class="cayman-usd-deposit-amount__summary-label" data-cayman-usd-deposit-amount-label-receive>Estimated to receive</span>
+                            <span class="cayman-usd-deposit-amount__summary-value" data-cayman-usd-deposit-amount-receive>- - USD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="cayman-usd-deposit-amount__footer">
+                <button class="schedule-time-sheet__btn schedule-time-sheet__btn--primary" type="button" data-cayman-usd-deposit-amount-confirm disabled>Confirm</button>
+            </footer>
         </section>
 
         <section class="twd-deposit-instructions" data-twd-deposit-instructions hidden aria-label="How to deposit TWD">
@@ -4436,7 +4524,7 @@
                     <img class="twd-deposit-sent-panel__illu" src="assets/Illu_depositintro_2.svg" alt="" width="328" height="190" aria-hidden="true" />
                     <div class="twd-deposit-sent-panel__copy">
                         <h2 class="twd-deposit-sent-panel__title" data-twd-deposit-sent-title>We&rsquo;ll notify you when deposits you&rsquo;ve made arrive</h2>
-                        <p class="twd-deposit-sent-panel__sub" data-twd-deposit-sent-sub>After you transfer TWD from KGI Bank &bull;&bull;&bull;&bull; 8999 to XREX, your deposit usually arrives within 1 hour.</p>
+                        <p class="twd-deposit-sent-panel__sub" data-twd-deposit-sent-sub>After you transfer TWD from KGI Bank &bull;&bull;&bull;&bull; 8999 to XREX, your deposit usually arrives instantly, may take longer.</p>
                     </div>
                 </div>
             </div>
@@ -4545,8 +4633,8 @@
                             <span class="twd-deposit-select__item-copy">
                                 <span class="twd-deposit-select__item-title" data-usd-deposit-bank-title>My KGI Bank 1</span>
                                 <span class="twd-deposit-select__item-meta">
-                                    <span data-usd-deposit-bank-name>Bank Name : KGI Bank</span>
-                                    <span data-usd-deposit-account-number>Account number : 12345678999</span>
+                                    <span data-usd-deposit-bank-name>KGI Bank</span>
+                                    <span data-usd-deposit-account-number>12345678999</span>
                                 </span>
                                 <span class="twd-deposit-select__item-status twd-deposit-select__item-status--verified" data-usd-deposit-status>Verified</span>
                             </span>
@@ -4559,8 +4647,8 @@
                             <span class="twd-deposit-select__item-copy">
                                 <span class="twd-deposit-select__item-title" data-usd-deposit-bank-title>My USD bank 2</span>
                                 <span class="twd-deposit-select__item-meta">
-                                    <span data-usd-deposit-bank-name>Bank Name : CTBC Bank</span>
-                                    <span data-usd-deposit-account-number>Account number : 12345679000</span>
+                                    <span data-usd-deposit-bank-name>CTBC Bank</span>
+                                    <span data-usd-deposit-account-number>12345679000</span>
                                 </span>
                                 <span class="twd-deposit-select__item-status twd-deposit-select__item-status--verified" data-usd-deposit-status>Verified</span>
                             </span>
@@ -4573,8 +4661,8 @@
                             <span class="twd-deposit-select__item-copy">
                                 <span class="twd-deposit-select__item-title" data-usd-deposit-bank-title>My USD bank 3</span>
                                 <span class="twd-deposit-select__item-meta">
-                                    <span data-usd-deposit-bank-name>Bank Name : CTBC Bank</span>
-                                    <span data-usd-deposit-account-number>Account number : 12345679000</span>
+                                    <span data-usd-deposit-bank-name>CTBC Bank</span>
+                                    <span data-usd-deposit-account-number>12345679000</span>
                                 </span>
                                 <span class="twd-deposit-select__item-status twd-deposit-select__item-status--verified" data-usd-deposit-status>Verified</span>
                             </span>
@@ -4587,8 +4675,8 @@
                             <span class="twd-deposit-select__item-copy">
                                 <span class="twd-deposit-select__item-title" data-usd-deposit-bank-title>My USD bank 4</span>
                                 <span class="twd-deposit-select__item-meta">
-                                    <span data-usd-deposit-bank-name>Bank Name : CTBC Bank</span>
-                                    <span data-usd-deposit-account-number>Account number : 12345679000</span>
+                                    <span data-usd-deposit-bank-name>CTBC Bank</span>
+                                    <span data-usd-deposit-account-number>12345679000</span>
                                 </span>
                                 <span class="twd-deposit-select__item-status twd-deposit-select__item-status--verified" data-usd-deposit-status>Verified</span>
                             </span>
@@ -4601,8 +4689,8 @@
                             <span class="twd-deposit-select__item-copy">
                                 <span class="twd-deposit-select__item-title" data-usd-deposit-bank-title>My USD bank 5</span>
                                 <span class="twd-deposit-select__item-meta">
-                                    <span data-usd-deposit-bank-name>Bank Name : CTBC Bank</span>
-                                    <span data-usd-deposit-account-number>Account number : 12345679000</span>
+                                    <span data-usd-deposit-bank-name>CTBC Bank</span>
+                                    <span data-usd-deposit-account-number>12345679000</span>
                                 </span>
                                 <span class="twd-deposit-select__item-status twd-deposit-select__item-status--verified" data-usd-deposit-status>Verified</span>
                             </span>
@@ -4950,8 +5038,8 @@
                                 <span class="bank-accounts-panel__list-copy">
                                     <span class="bank-accounts-panel__list-title">My CTBC bank</span>
                                     <span class="bank-accounts-panel__list-meta">
-                                        <span>Bank Name : CTBC Bank</span>
-                                        <span>Account number : 12345678999</span>
+                                        <span>CTBC Bank</span>
+                                        <span>12345678999</span>
                                     </span>
                                     <span class="bank-accounts-panel__list-status bank-accounts-panel__list-status--verified" data-bank-accounts-status>Verified</span>
                                 </span>
@@ -4995,8 +5083,8 @@
                                     <span class="bank-accounts-panel__list-copy">
                                         <span class="bank-accounts-panel__list-title">My KGI bank</span>
                                         <span class="bank-accounts-panel__list-meta">
-                                            <span>Bank Name : KGI bank</span>
-                                            <span>Account number : 12345678999</span>
+                                            <span>KGI Bank</span>
+                                            <span>12345678999</span>
                                         </span>
                                         <span class="bank-accounts-panel__list-status bank-accounts-panel__list-status--verified" data-bank-accounts-status>Verified</span>
                                     </span>
@@ -5011,8 +5099,8 @@
                                     <span class="bank-accounts-panel__list-copy">
                                         <span class="bank-accounts-panel__list-title">My KGI bank 2</span>
                                         <span class="bank-accounts-panel__list-meta">
-                                            <span>Bank Name : KGI bank</span>
-                                            <span>Account number : 12345679000</span>
+                                            <span>KGI Bank</span>
+                                            <span>12345679000</span>
                                         </span>
                                         <span class="bank-accounts-panel__list-status bank-accounts-panel__list-status--verified" data-bank-accounts-status>Verified</span>
                                     </span>
@@ -5027,8 +5115,8 @@
                                     <span class="bank-accounts-panel__list-copy">
                                         <span class="bank-accounts-panel__list-title">My KGI bank 3</span>
                                         <span class="bank-accounts-panel__list-meta">
-                                            <span>Bank Name : KGI bank</span>
-                                            <span>Account number : 12345679000</span>
+                                            <span>KGI Bank</span>
+                                            <span>12345679000</span>
                                         </span>
                                         <span class="bank-accounts-panel__list-status bank-accounts-panel__list-status--submitted" data-bank-accounts-status>Processing</span>
                                     </span>
@@ -5043,8 +5131,8 @@
                                     <span class="bank-accounts-panel__list-copy">
                                         <span class="bank-accounts-panel__list-title">My KGI bank 4</span>
                                         <span class="bank-accounts-panel__list-meta">
-                                            <span>Bank Name : KGI bank</span>
-                                            <span>Account number : 12345679000</span>
+                                            <span>KGI Bank</span>
+                                            <span>12345679000</span>
                                         </span>
                                         <span class="bank-accounts-panel__list-status bank-accounts-panel__list-status--submitted" data-bank-accounts-status>Processing</span>
                                     </span>
@@ -5059,8 +5147,8 @@
                                     <span class="bank-accounts-panel__list-copy">
                                         <span class="bank-accounts-panel__list-title">My KGI bank 5</span>
                                         <span class="bank-accounts-panel__list-meta">
-                                            <span>Bank Name : KGI bank</span>
-                                            <span>Account number : 12345679000</span>
+                                            <span>KGI Bank</span>
+                                            <span>12345679000</span>
                                         </span>
                                         <span class="bank-accounts-panel__list-status bank-accounts-panel__list-status--submitted" data-bank-accounts-status>Processing</span>
                                     </span>
@@ -5900,8 +5988,8 @@
                                 <span class="bank-account-status-sheet__card-copy">
                                     <span class="bank-account-status-sheet__card-title" data-bank-status-sheet-title>My CTBC bank</span>
                                     <span class="bank-account-status-sheet__card-meta">
-                                        <span data-bank-status-sheet-bank-name>Bank Name : CTBC Bank</span>
-                                        <span data-bank-status-sheet-account-number>Account number : 12345678999</span>
+                                        <span data-bank-status-sheet-bank-name>CTBC Bank</span>
+                                        <span data-bank-status-sheet-account-number>12345678999</span>
                                     </span>
                                     <span class="bank-account-status-sheet__card-status bank-account-status-sheet__card-status--submitted" data-bank-status-sheet-status>Processing</span>
                                 </span>
@@ -5946,8 +6034,8 @@
                                 <span class="bank-account-status-sheet__card-copy">
                                     <span class="bank-account-status-sheet__card-title" data-bank-status-sheet-title>My CTBC bank</span>
                                     <span class="bank-account-status-sheet__card-meta">
-                                        <span data-bank-status-sheet-bank-name>Bank Name : CTBC Bank</span>
-                                        <span data-bank-status-sheet-account-number>Account number : 12345678999</span>
+                                        <span data-bank-status-sheet-bank-name>CTBC Bank</span>
+                                        <span data-bank-status-sheet-account-number>12345678999</span>
                                     </span>
                                     <span class="bank-account-status-sheet__card-status bank-account-status-sheet__card-status--rejected" data-bank-status-sheet-status>Rejected</span>
                                 </span>
@@ -5993,8 +6081,8 @@
                                 <span class="bank-account-status-sheet__card-copy">
                                     <span class="bank-account-status-sheet__card-title" data-bank-status-sheet-title>My CTBC bank</span>
                                     <span class="bank-account-status-sheet__card-meta">
-                                        <span data-bank-status-sheet-bank-name>Bank Name : CTBC Bank</span>
-                                        <span data-bank-status-sheet-account-number>Account number : 12345678999</span>
+                                        <span data-bank-status-sheet-bank-name>CTBC Bank</span>
+                                        <span data-bank-status-sheet-account-number>12345678999</span>
                                     </span>
                                     <span class="bank-account-status-sheet__card-status bank-account-status-sheet__card-status--issues" data-bank-status-sheet-status>{ResubmitReason}</span>
                                 </span>
@@ -9211,7 +9299,7 @@ When your reserved funds run out, we'll automatically pre-fund again to keep you
         </div>
 
         <!-- Desktop prototype only (>640px): Withdraw page numeric keyboard -->
-        <div class="fake-keyboard fake-keyboard--withdraw" data-fake-keyboard="withdraw" aria-hidden="true" hidden>
+        <div class="fake-keyboard fake-keyboard--withdraw fake-keyboard--fiat-amount" data-fake-keyboard="withdraw" aria-hidden="true" hidden>
             <div class="fake-keyboard__panel" role="presentation">
                 <div class="fake-keyboard__sticky">
                     <div class="fake-keyboard__top-actions">
@@ -9237,6 +9325,54 @@ When your reserved funds run out, we'll automatically pre-fund again to keep you
                             data-fake-keyboard-withdraw-continue
                             disabled
                         >Continue</button>
+                    </div>
+                </div>
+                <div class="fake-keyboard__keys" aria-hidden="true">
+                    <div class="fake-keyboard__key"><span>1</span></div>
+                    <div class="fake-keyboard__key"><span>2</span><small>ABC</small></div>
+                    <div class="fake-keyboard__key"><span>3</span><small>DEF</small></div>
+                    <div class="fake-keyboard__key"><span>4</span><small>GHI</small></div>
+                    <div class="fake-keyboard__key"><span>5</span><small>JKL</small></div>
+                    <div class="fake-keyboard__key"><span>6</span><small>MNO</small></div>
+                    <div class="fake-keyboard__key"><span>7</span><small>PQRS</small></div>
+                    <div class="fake-keyboard__key"><span>8</span><small>TUV</small></div>
+                    <div class="fake-keyboard__key"><span>9</span><small>WXYZ</small></div>
+                    <div class="fake-keyboard__key fake-keyboard__key--empty"></div>
+                    <div class="fake-keyboard__key"><span>0</span></div>
+                    <div class="fake-keyboard__delete" aria-label="Delete">
+                        <span aria-hidden="true">⌫</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop prototype only (>640px): Cayman USD deposit amount keyboard -->
+        <div class="fake-keyboard fake-keyboard--deposit-usd fake-keyboard--fiat-amount" data-fake-keyboard="deposit-usd" aria-hidden="true" hidden>
+            <div class="fake-keyboard__panel" role="presentation">
+                <div class="fake-keyboard__sticky">
+                    <div class="fake-keyboard__top-actions">
+                        <button
+                            class="fake-keyboard__dismiss"
+                            type="button"
+                            data-fake-keyboard-deposit-usd-close
+                            aria-label="Dismiss keyboard"
+                        >
+                            <img src="assets/icon_chevron_down_white.svg" alt="" width="24" height="24" aria-hidden="true" />
+                        </button>
+                        <div class="fake-keyboard__pct-wrap">
+                            <div class="fake-keyboard__pct-bar" aria-label="Quick amount">
+                                <button type="button" data-fake-keyboard-deposit-usd-pct="25">25%</button>
+                                <button type="button" data-fake-keyboard-deposit-usd-pct="50">50%</button>
+                                <button type="button" data-fake-keyboard-deposit-usd-pct="75">75%</button>
+                                <button type="button" data-fake-keyboard-deposit-usd-pct="100">100%</button>
+                            </div>
+                        </div>
+                        <button
+                            class="fake-keyboard__preview"
+                            type="button"
+                            data-fake-keyboard-deposit-usd-confirm
+                            disabled
+                        >Confirm</button>
                     </div>
                 </div>
                 <div class="fake-keyboard__keys" aria-hidden="true">

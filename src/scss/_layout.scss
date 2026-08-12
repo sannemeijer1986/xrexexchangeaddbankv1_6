@@ -278,8 +278,7 @@
   }
 
   .fake-keyboard--convert,
-  .fake-keyboard--earn,
-  .fake-keyboard--withdraw {
+  .fake-keyboard--earn {
     .fake-keyboard__top-actions {
       gap: 16px;
       justify-content: flex-start;
@@ -320,9 +319,71 @@
     }
   }
 
-  .fake-keyboard--withdraw {
+  // Withdraw USD + Cayman USD deposit — shared fiat amount keyboard toolbar (Figma)
+  .fake-keyboard--fiat-amount {
+    .fake-keyboard__top-actions {
+      gap: 16px;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .fake-keyboard__dismiss {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 4px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+
+      img {
+        display: block;
+        width: 24px;
+        height: 24px;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #3f78ff;
+        outline-offset: 2px;
+      }
+    }
+
+    .fake-keyboard__pct-wrap {
+      flex: 1 1 0;
+      min-width: 0;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+    }
+
+    .fake-keyboard__pct-bar {
+      width: 100%;
+      flex: 1 1 auto;
+    }
+
+    .fake-keyboard__pct-bar button {
+      padding: 2px;
+    }
+
+    .fake-keyboard__pct-bar button.is-active {
+      color: #0d0e0f;
+    }
+
     .fake-keyboard__preview {
+      flex-shrink: 0;
+      width: auto;
       min-width: 56px;
+      height: 32px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
     }
   }
 
@@ -2068,12 +2129,14 @@ html[data-active-tab="wallet"] {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  justify-content: center;
+  padding-bottom: 2px;
 }
 
 .bank-accounts-panel__list-title {
   font-size: 16px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: normal;
   color: #ffffff;
   white-space: nowrap;
   overflow: hidden;
@@ -2084,9 +2147,9 @@ html[data-active-tab="wallet"] {
   display: flex;
   flex-direction: column;
   gap: 0;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 1.25;
+  line-height: 20px;
   color: #9b9c9c;
 }
 
@@ -2097,9 +2160,9 @@ html[data-active-tab="wallet"] {
 }
 
 .bank-accounts-panel__list-status {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: normal;
 }
 
 .bank-accounts-panel__list-status--submitted {
@@ -2861,7 +2924,9 @@ html[data-active-tab="wallet"] {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 2px;
+  justify-content: center;
+  padding-bottom: 2px;
 }
 
 .twd-deposit-select__item-title {
@@ -2877,9 +2942,9 @@ html[data-active-tab="wallet"] {
 .twd-deposit-select__item-meta {
   display: flex;
   flex-direction: column;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: normal;
+  line-height: 20px;
   color: #9b9c9c;
 
   span {
@@ -2890,7 +2955,7 @@ html[data-active-tab="wallet"] {
 }
 
 .twd-deposit-select__item-status {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   line-height: normal;
 
@@ -2992,6 +3057,313 @@ html[data-active-tab="wallet"] {
 
 .twd-deposit-instructions {
   z-index: 2180;
+}
+
+// Figma 8532:66632 — Cayman USD deposit amount
+.cayman-usd-deposit-amount {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background: #0d0e0f;
+  z-index: 2190;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  overflow: hidden;
+}
+
+.cayman-usd-deposit-amount.is-open {
+  transform: translateX(0);
+}
+
+.cayman-usd-deposit-amount.is-instant {
+  transition: none !important;
+}
+
+.cayman-usd-deposit-amount__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 56px 16px 16px;
+  flex-shrink: 0;
+}
+
+.cayman-usd-deposit-amount__header-left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cayman-usd-deposit-amount__icon-btn {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+}
+
+.cayman-usd-deposit-amount__title {
+  min-width: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: normal;
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cayman-usd-deposit-amount__divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.cayman-usd-deposit-amount__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px 16px 16px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.cayman-usd-deposit-amount__top {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.phone-container p.cayman-usd-deposit-amount__lead {
+  margin: 0 0 24px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: normal;
+  color: #ffffff;
+}
+
+.cayman-usd-deposit-amount__amount-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cayman-usd-deposit-amount__amount-input.plan-buffer-funding-input {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  gap: 0;
+}
+
+.cayman-usd-deposit-amount__amount-row {
+  cursor: text;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cayman-usd-deposit-amount__amount-input-wrap {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  gap: 4px;
+
+  &::after {
+    content: "";
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .plan-buffer-funding-input__field {
+    flex: 0 1 auto;
+    min-width: 0;
+    width: auto;
+    field-sizing: content;
+    min-inline-size: 24px;
+    font-weight: 700;
+    caret-color: #275cfd;
+  }
+
+  .plan-buffer-funding-input__hint {
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #58595a;
+  }
+}
+
+.cayman-usd-deposit-amount__amount-input {
+  .plan-buffer-funding-input__cur {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .plan-buffer-funding-input__divider {
+    background: rgba(255, 255, 255, 0.24);
+  }
+}
+
+.cayman-usd-deposit-amount__error-row .cayman-usd-deposit-amount__amount-error,
+.phone-container p.cayman-usd-deposit-amount__amount-error {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #eb5347;
+  opacity: 0;
+  visibility: hidden;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.cayman-usd-deposit-amount__error-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+  height: 28px;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+.cayman-usd-deposit-amount__limit-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  vertical-align: middle;
+
+  img {
+    display: block;
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.cayman-usd-deposit-amount__footer {
+  flex-shrink: 0;
+  display: flex;
+  padding: 16px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  background: #0d0e0f;
+  opacity: 1;
+  transition: opacity 180ms ease;
+
+  .schedule-time-sheet__btn {
+    width: 100%;
+    flex: 1;
+  }
+}
+
+.cayman-usd-deposit-amount__summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #151718;
+}
+
+.cayman-usd-deposit-amount__summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cayman-usd-deposit-amount__summary-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: normal;
+  color: #9b9c9c;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.cayman-usd-deposit-amount__summary-value {
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: normal;
+  color: #ffffff;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.cayman-usd-deposit-amount__summary-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cayman-usd-deposit-amount__summary-total {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cayman-usd-deposit-amount__summary-row--total {
+  .cayman-usd-deposit-amount__summary-label,
+  .cayman-usd-deposit-amount__summary-value {
+    font-size: 16px;
+    color: #ffffff;
+  }
+}
+
+.cayman-usd-deposit-amount__footer .schedule-time-sheet__btn--primary:disabled {
+  opacity: 1;
+  background: #081b68;
+  color: #58595a;
+  cursor: not-allowed;
+}
+
+.phone-container h1.cayman-usd-deposit-amount__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: normal;
+  color: #ffffff;
 }
 
 .twd-first-time-deposit.is-open,
@@ -3234,7 +3606,15 @@ html[data-active-tab="wallet"] {
 }
 
 .twd-first-time-deposit__consent-wrap {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 12px;
+
+  &[hidden] {
+    display: none;
+  }
 }
 
 .twd-first-time-deposit__consent {
@@ -3258,8 +3638,8 @@ html[data-active-tab="wallet"] {
 }
 
 .twd-first-time-deposit__consent-copy {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   line-height: normal;
   color: #fff;
 }
@@ -3269,6 +3649,7 @@ html[data-active-tab="wallet"] {
 }
 
 .twd-first-time-deposit__consent-hint {
+  display: none;
   margin: 0;
   font-size: 14px;
   font-weight: 400;
@@ -4276,6 +4657,10 @@ html[data-active-tab="wallet"] {
   transform: translateX(0);
 }
 
+.fiat-flow-placeholder--stacked {
+  z-index: 2185;
+}
+
 .fiat-flow-placeholder.is-instant {
   transition: none !important;
 }
@@ -4629,19 +5014,24 @@ html[data-active-tab="wallet"] {
     z-index: 2175;
   }
 
-  .fake-keyboard--withdraw .fake-keyboard__pct-bar button {
-    padding: 2px;
-  }
-
-  .fake-keyboard--withdraw .fake-keyboard__pct-bar button.is-active {
-    color: #0d0e0f;
-  }
-
   .phone-container.is-fake-keyboard-withdraw-visible .fiat-withdraw-page__scroll {
     padding-bottom: calc(var(--withdraw-keyboard-inset, 332px) + env(safe-area-inset-bottom, 0px));
   }
 
   .phone-container.is-fake-keyboard-withdraw-visible:not(.is-fake-keyboard-withdraw-dismissing) .fiat-withdraw-page__footer {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .fake-keyboard--deposit-usd {
+    z-index: 2195;
+  }
+
+  .phone-container.is-fake-keyboard-deposit-usd-visible .cayman-usd-deposit-amount__scroll {
+    padding-bottom: calc(var(--deposit-usd-keyboard-inset, 332px) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .phone-container.is-fake-keyboard-deposit-usd-visible:not(.is-fake-keyboard-deposit-usd-dismissing) .cayman-usd-deposit-amount__footer {
     opacity: 0;
     pointer-events: none;
   }
