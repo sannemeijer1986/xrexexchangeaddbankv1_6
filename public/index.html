@@ -4386,6 +4386,156 @@
             <footer class="cayman-usd-deposit-amount__footer">
                 <button class="schedule-time-sheet__btn schedule-time-sheet__btn--primary" type="button" data-cayman-usd-deposit-amount-confirm disabled>Confirm</button>
             </footer>
+            <div class="cayman-usd-deposit-amount__loader plan-submit-loader" data-cayman-usd-deposit-amount-loader hidden>
+                <div class="plan-submit-loader__backdrop" aria-hidden="true"></div>
+                <div class="plan-submit-loader__card" role="status" aria-live="polite" aria-label="Submitting">
+                    <img class="plan-submit-loader__icon" src="assets/icon-loading.svg" alt="" width="40" height="40" aria-hidden="true" />
+                </div>
+            </div>
+        </section>
+
+        <section class="cayman-usd-deposit-instructions" data-cayman-usd-deposit-instructions hidden aria-label="How to deposit USD">
+            <header class="twd-deposit-instructions__header" data-cayman-usd-deposit-instructions-header>
+                <div class="twd-deposit-instructions__header-left">
+                    <button class="twd-deposit-instructions__icon-btn" type="button" data-cayman-usd-deposit-instructions-back aria-label="Back">
+                        <img src="assets/icon_back.svg" alt="" width="24" height="24" />
+                    </button>
+                    <span class="twd-deposit-instructions__header-title" data-cayman-usd-deposit-instructions-header-title aria-hidden="true">How to deposit USD</span>
+                </div>
+                <button class="twd-deposit-instructions__icon-btn twd-deposit-instructions__icon-btn--support" type="button" aria-label="Support">
+                    <img src="assets/icon_intercom.svg" alt="" width="24" height="24" />
+                </button>
+            </header>
+            <div class="twd-deposit-instructions__scroll" data-cayman-usd-deposit-instructions-scroll>
+                <h1 class="twd-deposit-instructions__title" data-cayman-usd-deposit-instructions-title>How to deposit USD</h1>
+                <section class="twd-deposit-instructions__step">
+                    <div class="twd-deposit-instructions__step-head">
+                        <span class="twd-deposit-instructions__step-badge" aria-hidden="true">1</span>
+                        <div class="twd-deposit-instructions__step-head-copy">
+                            <h2 class="twd-deposit-instructions__step-title" data-cayman-usd-deposit-instructions-step1-title>Send USD from your linked KGI Bank account via online banking</h2>
+                        </div>
+                    </div>
+                    <div class="twd-deposit-instructions__linked-card">
+                        <div class="twd-deposit-instructions__card-icon-wrap" aria-hidden="true">
+                            <img class="twd-deposit-instructions__linked-icon" src="assets/illu_bank_usd.svg" alt="" width="32" height="32" />
+                        </div>
+                        <div class="twd-deposit-instructions__linked-copy">
+                            <p class="twd-deposit-instructions__linked-eyebrow" data-cayman-usd-deposit-instructions-linked-eyebrow>Linked bank account</p>
+                            <p class="twd-deposit-instructions__linked-bank" data-cayman-usd-deposit-instructions-bank-name>KGI Bank</p>
+                            <p class="twd-deposit-instructions__linked-account" data-cayman-usd-deposit-instructions-bank-account>••••8999</p>
+                        </div>
+                        <span class="twd-deposit-instructions__verified-tag" data-cayman-usd-deposit-instructions-verified>Verified</span>
+                    </div>
+                </section>
+                <section class="twd-deposit-instructions__step">
+                    <div class="twd-deposit-instructions__step-head">
+                        <span class="twd-deposit-instructions__step-badge" aria-hidden="true">2</span>
+                        <div class="twd-deposit-instructions__step-head-copy">
+                            <h2 class="twd-deposit-instructions__step-title">
+                                <span data-cayman-usd-deposit-instructions-step2-prefix>Send exactly </span><span class="cayman-usd-deposit-instructions__amount-highlight" data-cayman-usd-deposit-instructions-exact-amount>50.00 USD</span><span data-cayman-usd-deposit-instructions-step2-suffix> to this XREX bank account</span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="twd-deposit-instructions__trust-card">
+                        <div class="twd-deposit-instructions__trust-rows">
+                            <button class="twd-deposit-instructions__trust-row" type="button" data-cayman-usd-deposit-copy="bank" aria-label="Copy bank">
+                                <div class="twd-deposit-instructions__trust-field">
+                                    <span class="twd-deposit-instructions__trust-label" data-cayman-usd-deposit-instructions-label-bank>Bank</span>
+                                    <span class="twd-deposit-instructions__trust-value" data-cayman-usd-deposit-instructions-trust-bank>Far Eastern International Bank</span>
+                                </div>
+                                <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
+                            </button>
+                            <div class="twd-deposit-instructions__trust-divider" aria-hidden="true"></div>
+                            <button class="twd-deposit-instructions__trust-row" type="button" data-cayman-usd-deposit-copy="account" aria-label="Copy account number">
+                                <div class="twd-deposit-instructions__trust-field">
+                                    <span class="twd-deposit-instructions__trust-label" data-cayman-usd-deposit-instructions-label-account>Account No.</span>
+                                    <span class="twd-deposit-instructions__trust-value twd-deposit-instructions__trust-value--account" data-cayman-usd-deposit-instructions-trust-account>1032 1695 1918 2206</span>
+                                </div>
+                                <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
+                            </button>
+                            <div class="twd-deposit-instructions__trust-divider" aria-hidden="true"></div>
+                            <button class="twd-deposit-instructions__trust-row" type="button" data-cayman-usd-deposit-copy="reference" aria-label="Copy reference ID">
+                                <div class="twd-deposit-instructions__trust-field">
+                                    <span class="twd-deposit-instructions__trust-label" data-cayman-usd-deposit-instructions-label-reference>Reference ID</span>
+                                    <span class="twd-deposit-instructions__trust-value twd-deposit-instructions__trust-value--account" data-cayman-usd-deposit-instructions-trust-reference>FNGY6807-5973</span>
+                                    <p class="cayman-usd-deposit-instructions__reference-note" data-cayman-usd-deposit-instructions-trust-reference-note>Include this in the transfer note/memo</p>
+                                </div>
+                                <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
+                            </button>
+                            <div class="twd-deposit-instructions__trust-divider" aria-hidden="true"></div>
+                            <button class="twd-deposit-instructions__trust-row" type="button" data-cayman-usd-deposit-copy="swift" aria-label="Copy SWIFT code">
+                                <div class="twd-deposit-instructions__trust-field">
+                                    <span class="twd-deposit-instructions__trust-label" data-cayman-usd-deposit-instructions-label-swift>SWIFT code</span>
+                                    <span class="twd-deposit-instructions__trust-value twd-deposit-instructions__trust-value--account" data-cayman-usd-deposit-instructions-trust-swift>FEINTWTPOBU</span>
+                                </div>
+                                <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
+                            </button>
+                            <div class="twd-deposit-instructions__trust-divider" aria-hidden="true"></div>
+                            <button class="twd-deposit-instructions__trust-row" type="button" data-cayman-usd-deposit-copy="account-name" aria-label="Copy account name">
+                                <div class="twd-deposit-instructions__trust-field">
+                                    <span class="twd-deposit-instructions__trust-label" data-cayman-usd-deposit-instructions-label-account-name>Account name</span>
+                                    <span class="twd-deposit-instructions__trust-value" data-cayman-usd-deposit-instructions-trust-account-name>XREX INC.</span>
+                                </div>
+                                <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
+                            </button>
+                            <div class="twd-deposit-instructions__trust-divider" aria-hidden="true"></div>
+                            <button class="twd-deposit-instructions__trust-row" type="button" data-cayman-usd-deposit-copy="bank-address" aria-label="Copy bank address">
+                                <div class="twd-deposit-instructions__trust-field">
+                                    <span class="twd-deposit-instructions__trust-label" data-cayman-usd-deposit-instructions-label-bank-address>Bank address</span>
+                                    <span class="twd-deposit-instructions__trust-value cayman-usd-deposit-instructions__trust-address" data-cayman-usd-deposit-instructions-trust-bank-address>2F., No.30, Sec. 1, Chung King N. Rd., Taipei City 103, Taiwan (R.O.C)</span>
+                                </div>
+                                <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
+                            </button>
+                        </div>
+                        <button class="twd-deposit-instructions__share-btn" type="button" data-cayman-usd-deposit-instructions-share-all>
+                            <img class="twd-deposit-instructions__copy-icon" src="assets/icon_n_copy.svg" alt="" width="18" height="18" aria-hidden="true" />
+                            <span data-cayman-usd-deposit-instructions-share-all-label>Copy all details</span>
+                        </button>
+                    </div>
+                </section>
+                <section class="twd-deposit-instructions__step">
+                    <div class="twd-deposit-instructions__step-head">
+                        <span class="twd-deposit-instructions__step-badge" aria-hidden="true">3</span>
+                        <h2 class="twd-deposit-instructions__step-title" data-cayman-usd-deposit-instructions-step3-title>When it arrives</h2>
+                    </div>
+                    <div class="twd-deposit-instructions__arrival-card">
+                        <div class="twd-deposit-instructions__arrival-copy">
+                            <p class="twd-deposit-instructions__arrival-title" data-cayman-usd-deposit-instructions-arrival-title>Usually arrives in 1–3 business days.</p>
+                            <p class="twd-deposit-instructions__arrival-subtitle" data-cayman-usd-deposit-instructions-arrival-subtitle>We&rsquo;ll notify you the moment your deposit arrives.</p>
+                        </div>
+                        <div class="twd-deposit-instructions__card-icon-wrap" aria-hidden="true">
+                            <img class="twd-deposit-instructions__arrival-icon" src="assets/illu_within1hour.svg" alt="" width="32" height="32" />
+                        </div>
+                    </div>
+                </section>
+                <section class="twd-deposit-instructions__help">
+                    <img class="twd-deposit-instructions__help-illu" src="assets/gfx_deposit_help.svg" alt="" width="100" height="89" aria-hidden="true" />
+                    <h2 class="twd-deposit-instructions__help-title" data-cayman-usd-deposit-instructions-help-title>Not sure how to deposit?</h2>
+                    <div class="twd-deposit-instructions__help-list">
+                        <button class="twd-deposit-instructions__help-item" type="button" data-cayman-usd-deposit-instructions-walkthrough>
+                            <img class="twd-deposit-instructions__help-item-icon" src="assets/icon_deposithelp_guide.svg" alt="" width="20" height="20" aria-hidden="true" />
+                            <span class="twd-deposit-instructions__help-item-copy">
+                                <span class="twd-deposit-instructions__help-item-title" data-cayman-usd-deposit-instructions-walkthrough-title>Walk me through it</span>
+                                <span class="twd-deposit-instructions__help-item-desc" data-cayman-usd-deposit-instructions-walkthrough-desc>See step-by-step guide</span>
+                            </span>
+                            <img class="twd-deposit-instructions__help-item-chevron" src="assets/icon_deposit_chevronwhite.svg" alt="" width="20" height="20" aria-hidden="true" />
+                        </button>
+                        <div class="twd-deposit-instructions__help-divider" aria-hidden="true"></div>
+                        <button class="twd-deposit-instructions__help-item" type="button" data-cayman-usd-deposit-instructions-support>
+                            <img class="twd-deposit-instructions__help-item-icon" src="assets/icon_deposithelp_intercom.svg" alt="" width="20" height="20" aria-hidden="true" />
+                            <span class="twd-deposit-instructions__help-item-copy">
+                                <span class="twd-deposit-instructions__help-item-title" data-cayman-usd-deposit-instructions-support-title>Need help? Contact support</span>
+                                <span class="twd-deposit-instructions__help-item-desc" data-cayman-usd-deposit-instructions-support-desc>Our team is here to assist</span>
+                            </span>
+                            <img class="twd-deposit-instructions__help-item-chevron" src="assets/icon_deposit_chevronwhite.svg" alt="" width="20" height="20" aria-hidden="true" />
+                        </button>
+                    </div>
+                </section>
+                <footer class="twd-deposit-instructions__footer">
+                    <button class="schedule-time-sheet__btn schedule-time-sheet__btn--secondary" type="button" data-cayman-usd-deposit-instructions-back-footer>Back</button>
+                    <button class="schedule-time-sheet__btn schedule-time-sheet__btn--primary" type="button" data-cayman-usd-deposit-instructions-done>Done</button>
+                </footer>
+            </div>
         </section>
 
         <section class="twd-deposit-instructions" data-twd-deposit-instructions hidden aria-label="How to deposit TWD">
@@ -4478,7 +4628,7 @@
                             <p class="twd-deposit-instructions__arrival-subtitle">We&rsquo;ll notify you the moment your deposit arrives.</p>
                         </div>
                         <div class="twd-deposit-instructions__card-icon-wrap" aria-hidden="true">
-                            <img class="twd-deposit-instructions__arrival-icon" src="assets/gfx_firstdepo_clock.svg" alt="" width="32" height="32" />
+                            <img class="twd-deposit-instructions__arrival-icon" src="assets/gfx_firstdepo_clock.svg" alt="" width="32" height="32" data-twd-deposit-instructions-arrival-icon />
                         </div>
                     </div>
                 </section>
@@ -4562,6 +4712,39 @@
                     type="button" data-twd-deposit-guide-back>Close</button>
                 <button class="twd-deposit-guide-panel__btn twd-deposit-guide-panel__btn--primary"
                     type="button" data-twd-deposit-guide-next>Next</button>
+            </div>
+        </section>
+
+        <section class="twd-deposit-guide-panel cayman-usd-deposit-guide-panel" data-cayman-usd-deposit-guide-panel hidden aria-label="Cayman USD deposit guide">
+            <div class="twd-deposit-guide-panel__header">
+                <button class="twd-deposit-guide-panel__close" type="button" data-cayman-usd-deposit-guide-close aria-label="Close">
+                    <img src="assets/icon_close.svg" alt="" width="24" height="24" />
+                </button>
+                <div class="twd-deposit-guide-panel__stepper" aria-hidden="true">
+                    <span class="twd-deposit-guide-panel__step is-active" data-cayman-usd-deposit-guide-step="1"></span>
+                    <span class="twd-deposit-guide-panel__step" data-cayman-usd-deposit-guide-step="2"></span>
+                    <span class="twd-deposit-guide-panel__step" data-cayman-usd-deposit-guide-step="3"></span>
+                    <span class="twd-deposit-guide-panel__step" data-cayman-usd-deposit-guide-step="4"></span>
+                    <span class="twd-deposit-guide-panel__step" data-cayman-usd-deposit-guide-step="5"></span>
+                </div>
+                <button class="twd-deposit-guide-panel__help" type="button" aria-label="Support">
+                    <img src="assets/icon_intercom.svg" alt="" width="24" height="24" />
+                </button>
+            </div>
+            <div class="twd-deposit-guide-panel__body">
+                <div class="twd-deposit-guide-panel__visual" aria-hidden="true">
+                    <img class="twd-deposit-guide-panel__visual-img" data-cayman-usd-deposit-guide-visual src="assets/Illu_depositintro_1.svg" alt="" />
+                </div>
+                <div class="twd-deposit-guide-panel__copy">
+                    <h2 class="twd-deposit-guide-panel__title" data-cayman-usd-deposit-guide-title></h2>
+                    <p class="twd-deposit-guide-panel__desc" data-cayman-usd-deposit-guide-desc></p>
+                </div>
+            </div>
+            <div class="twd-deposit-guide-panel__footer">
+                <button class="twd-deposit-guide-panel__btn twd-deposit-guide-panel__btn--secondary"
+                    type="button" data-cayman-usd-deposit-guide-back>Close</button>
+                <button class="twd-deposit-guide-panel__btn twd-deposit-guide-panel__btn--primary"
+                    type="button" data-cayman-usd-deposit-guide-next>Next</button>
             </div>
         </section>
 

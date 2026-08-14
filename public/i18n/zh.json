@@ -1005,6 +1005,18 @@
   "Always specify the amount you plan to send in XREX first": "請先在 XREX 指定您計劃匯出的金額",
   "Always include reference ID": "請務必填寫參考編號",
   "Usually arrives in 1–3 business days.": "通常於 1–3 個工作天到帳。",
+  "Send from the verified USD bank account you linked on XREX. Money sent from any other account will be returned, sometimes with a fee.": "請從您在 XREX 綁定且已驗證的 USD 銀行帳戶匯款。從其他帳戶匯入的款項將被退回，有時可能產生手續費。",
+  "If you don't, we can't match your deposit, and it may be delayed or sent back.": "若未先指定，我們將無法對帳，入金可能延遲或被退回。",
+  "Enter it in the transfer's note or memo field. Without it, we can't match your deposit and it may be delayed or returned.": "請在轉帳備註或附言欄位填寫。若未填寫，我們將無法對帳，入金可能延遲或被退回。",
+  "We'll notify you the moment your deposit arrives. You can withdraw whenever you like.": "入金一到帳，我們會立即通知您。您可隨時出金。",
   "Show deposit details": "顯示入金詳情",
+  "Send exactly ": "請匯出 ",
+  " to this XREX bank account": " 至這個 XREX 銀行帳戶",
+  "Reference ID": "參考編號",
+  "Include this in the transfer note/memo": "請在轉帳備註／附言中填寫此編號",
+  "SWIFT code": "SWIFT 代碼",
+  "Bank address": "銀行地址",
+  "After you transfer USD from {destination} to XREX, your deposit usually arrives in 1–3 business days.": "從 {destination} 匯款 USD 至 XREX 後，通常於 1–3 個工作天到帳。",
+  "Tutorial content coming soon.": "教學內容即將推出。",
   "Optional checkbox: Current \"Cayman\" has a confirmation sheet with T&C.": "選用核取方塊：目前「Cayman」有附帶條款的確認表單。"
 }

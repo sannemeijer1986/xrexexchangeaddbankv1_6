@@ -6622,7 +6622,8 @@
         if (
           !isFiatFlowPanelOpen("[data-usd-deposit-setup]") &&
           !isFiatFlowPanelOpen("[data-usd-deposit-select]") &&
-          !isFiatFlowPanelOpen("[data-cayman-usd-deposit-amount]")
+          !isFiatFlowPanelOpen("[data-cayman-usd-deposit-amount]") &&
+          !isFiatFlowPanelOpen("[data-cayman-usd-deposit-instructions]")
         ) {
           usdDepositApi?.clearEntrySource?.();
         }
@@ -7587,6 +7588,7 @@
       fee: panel.querySelector("[data-cayman-usd-deposit-amount-fee]"),
       receive: panel.querySelector("[data-cayman-usd-deposit-amount-receive]"),
       confirmBtn: panel.querySelector("[data-cayman-usd-deposit-amount-confirm]"),
+      loader: panel.querySelector("[data-cayman-usd-deposit-amount-loader]"),
       amountRow: panel.querySelector(".cayman-usd-deposit-amount__amount-row"),
       labelRemainingLimit: panel.querySelector(
         "[data-cayman-usd-deposit-amount-label-remaining-limit]",
@@ -7602,6 +7604,17 @@
 
     const hideDepositKeyboard = () => {
       document.dispatchEvent(new CustomEvent("fake-keyboard-deposit-usd-hide"));
+    };
+
+    let submitGeneration = 0;
+    const SUBMIT_LOADER_MS = 1600;
+
+    const hideSubmitLoader = () => {
+      if (els.loader) els.loader.hidden = true;
+    };
+
+    const showSubmitLoader = () => {
+      if (els.loader) els.loader.hidden = false;
     };
 
     const scheduleFocusAmountInput = () => {
@@ -7720,6 +7733,8 @@
         return;
       }
       hideDepositKeyboard();
+      hideSubmitLoader();
+      submitGeneration += 1;
       if (opts.instant) {
         panel.classList.add("is-instant");
         panel.classList.remove("is-open");
@@ -7771,7 +7786,19 @@
     els.confirmBtn?.addEventListener("click", () => {
       if (els.confirmBtn?.disabled) return;
       hideDepositKeyboard();
-      showSnackbar("Not in prototype");
+      const amount = parseDepositUsdAmount(els.amount?.value);
+      if (!amount) return;
+      const gen = (submitGeneration += 1);
+      showSubmitLoader();
+      window.setTimeout(() => {
+        if (gen !== submitGeneration) return;
+        hideSubmitLoader();
+        document.dispatchEvent(
+          new CustomEvent("cayman-usd-deposit-amount-confirmed", {
+            detail: { amount },
+          }),
+        );
+      }, SUBMIT_LOADER_MS);
     });
 
     els.amount?.addEventListener("input", () => {
@@ -7816,6 +7843,410 @@
         formatAmount: formatDepositUsdAmount,
         applyAmountInput: applyDepositUsdAmountInput,
       }),
+    };
+  };
+
+  const CAYMAN_USD_DEPOSIT_TRUST_ACCOUNT = {
+    bank: "Far Eastern International Bank",
+    account: "1032 1695 1918 2206",
+    reference: "FNGY6807-5973",
+    referenceNote: "Include this in the transfer note/memo",
+    swift: "FEINTWTPOBU",
+    accountName: "XREX INC.",
+    bankAddress:
+      "2F., No.30, Sec. 1, Chung King N. Rd., Taipei City 103, Taiwan (R.O.C)",
+  };
+
+  const CAYMAN_USD_DEPOSIT_GUIDE_SLIDES = [
+    {
+      title: "Send USD from one of your linked bank accounts",
+      desc:
+        "Send from the verified USD bank account you linked on XREX. Money sent from any other account will be returned, sometimes with a fee.",
+      visual: "assets/Illu_depositintro_1.svg",
+    },
+    {
+      title: "Always specify the amount you plan to send in XREX first",
+      desc: "If you don't, we can't match your deposit, and it may be delayed or sent back.",
+      visual: "assets/Illu_depositintro_2.svg",
+    },
+    {
+      title: "Always include reference ID",
+      desc:
+        "Enter it in the transfer's note or memo field. Without it, we can't match your deposit and it may be delayed or returned.",
+      visual: "assets/Illu_depositintro_4.svg",
+    },
+    {
+      title: "Never share your deposit details with others",
+      desc:
+        "Your account is for your deposits only. Money sent by other people will be rejected and returned. This keeps your account safe and compliant.",
+      visual: "assets/Illu_depositintro_3.svg",
+    },
+    {
+      title: "Usually arrives in 1–3 business days.",
+      desc:
+        "We'll notify you the moment your deposit arrives. You can withdraw whenever you like.",
+      visual: "assets/Illu_depositintro_4.svg",
+    },
+  ];
+
+  const initCaymanUsdDepositGuidePanel = ({ showSnackbar = () => {} } = {}) => {
+    const panelEl = document.querySelector("[data-cayman-usd-deposit-guide-panel]");
+    if (!panelEl) return { open: () => {}, close: () => {} };
+
+    const titleEl = panelEl.querySelector("[data-cayman-usd-deposit-guide-title]");
+    const descEl = panelEl.querySelector("[data-cayman-usd-deposit-guide-desc]");
+    const visualEl = panelEl.querySelector("[data-cayman-usd-deposit-guide-visual]");
+    const stepEls = Array.from(
+      panelEl.querySelectorAll("[data-cayman-usd-deposit-guide-step]"),
+    );
+    const backBtn = panelEl.querySelector("[data-cayman-usd-deposit-guide-back]");
+    const nextBtn = panelEl.querySelector("[data-cayman-usd-deposit-guide-next]");
+    let activeStep = 0;
+
+    const renderStep = () => {
+      const safe = Math.max(0, Math.min(CAYMAN_USD_DEPOSIT_GUIDE_SLIDES.length - 1, activeStep));
+      activeStep = safe;
+      const slide = CAYMAN_USD_DEPOSIT_GUIDE_SLIDES[safe];
+      if (titleEl) titleEl.textContent = tr(slide.title);
+      if (descEl) descEl.textContent = tr(slide.desc);
+      if (visualEl && slide.visual) visualEl.setAttribute("src", slide.visual);
+      stepEls.forEach((el, idx) => el.classList.toggle("is-active", idx === safe));
+      if (nextBtn) {
+        nextBtn.textContent =
+          safe === CAYMAN_USD_DEPOSIT_GUIDE_SLIDES.length - 1
+            ? tr("Done")
+            : tr("Next");
+      }
+      if (backBtn) backBtn.textContent = safe === 0 ? tr("Close") : tr("Back");
+    };
+
+    const open = () => {
+      activeStep = 0;
+      renderStep();
+      panelEl.hidden = false;
+      requestAnimationFrame(() => panelEl.classList.add("is-open"));
+    };
+
+    const close = (opts = {}) => {
+      if (opts.instant) {
+        panelEl.classList.remove("is-open");
+        panelEl.hidden = true;
+        return;
+      }
+      panelEl.classList.remove("is-open");
+      const onEnd = () => {
+        if (!panelEl.classList.contains("is-open")) panelEl.hidden = true;
+        panelEl.removeEventListener("transitionend", onEnd);
+      };
+      panelEl.addEventListener("transitionend", onEnd);
+      setTimeout(onEnd, 380);
+    };
+
+    backBtn?.addEventListener("click", () => {
+      if (activeStep <= 0) {
+        close();
+        return;
+      }
+      activeStep -= 1;
+      renderStep();
+    });
+    nextBtn?.addEventListener("click", () => {
+      if (activeStep >= CAYMAN_USD_DEPOSIT_GUIDE_SLIDES.length - 1) {
+        close();
+        return;
+      }
+      activeStep += 1;
+      renderStep();
+    });
+    panelEl
+      .querySelectorAll("[data-cayman-usd-deposit-guide-close]")
+      .forEach((btn) => btn.addEventListener("click", () => close()));
+    panelEl
+      .querySelector(".twd-deposit-guide-panel__help")
+      ?.addEventListener("click", () => showSnackbar("Not in prototype"));
+
+    document.addEventListener("prototype-locale-changed", () => {
+      if (panelEl.classList.contains("is-open") && !panelEl.hidden) renderStep();
+    });
+
+    return { open, close };
+  };
+
+  const initCaymanUsdDepositInstructionsPanel = ({
+    showSnackbar = () => {},
+    onBack = () => {},
+    onDone = () => {},
+    openGuide = () => {},
+    openCopyReminderSheet = () => {},
+    isCopyReminderEnabled = () => false,
+  } = {}) => {
+    const panel = document.querySelector("[data-cayman-usd-deposit-instructions]");
+    if (!panel) {
+      return { open: () => {}, close: () => {}, isOpen: () => false, syncUi: () => {} };
+    }
+
+    let depositAmount = null;
+    let titleObserver = null;
+
+    const els = {
+      header: panel.querySelector("[data-cayman-usd-deposit-instructions-header]"),
+      headerTitle: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-header-title]",
+      ),
+      pageTitle: panel.querySelector("[data-cayman-usd-deposit-instructions-title]"),
+      scroll: panel.querySelector("[data-cayman-usd-deposit-instructions-scroll]"),
+      step1Title: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-step1-title]",
+      ),
+      linkedEyebrow: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-linked-eyebrow]",
+      ),
+      bankName: panel.querySelector("[data-cayman-usd-deposit-instructions-bank-name]"),
+      bankAccount: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-bank-account]",
+      ),
+      verified: panel.querySelector("[data-cayman-usd-deposit-instructions-verified]"),
+      step2Prefix: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-step2-prefix]",
+      ),
+      exactAmount: panel.querySelector("[data-cayman-usd-deposit-instructions-exact-amount]"),
+      step2Suffix: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-step2-suffix]",
+      ),
+      trustBank: panel.querySelector("[data-cayman-usd-deposit-instructions-trust-bank]"),
+      trustAccount: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-trust-account]",
+      ),
+      trustReference: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-trust-reference]",
+      ),
+      trustReferenceNote: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-trust-reference-note]",
+      ),
+      trustSwift: panel.querySelector("[data-cayman-usd-deposit-instructions-trust-swift]"),
+      trustAccountName: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-trust-account-name]",
+      ),
+      trustBankAddress: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-trust-bank-address]",
+      ),
+      shareAllLabel: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-share-all-label]",
+      ),
+      step3Title: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-step3-title]",
+      ),
+      arrivalTitle: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-arrival-title]",
+      ),
+      arrivalSubtitle: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-arrival-subtitle]",
+      ),
+      helpTitle: panel.querySelector("[data-cayman-usd-deposit-instructions-help-title]"),
+      walkthroughTitle: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-walkthrough-title]",
+      ),
+      walkthroughDesc: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-walkthrough-desc]",
+      ),
+      supportTitle: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-support-title]",
+      ),
+      supportDesc: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-support-desc]",
+      ),
+      backFooter: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-back-footer]",
+      ),
+      doneBtn: panel.querySelector("[data-cayman-usd-deposit-instructions-done]"),
+    };
+
+    const trustLabels = {
+      bank: panel.querySelector("[data-cayman-usd-deposit-instructions-label-bank]"),
+      account: panel.querySelector("[data-cayman-usd-deposit-instructions-label-account]"),
+      reference: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-label-reference]",
+      ),
+      swift: panel.querySelector("[data-cayman-usd-deposit-instructions-label-swift]"),
+      accountName: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-label-account-name]",
+      ),
+      bankAddress: panel.querySelector(
+        "[data-cayman-usd-deposit-instructions-label-bank-address]",
+      ),
+    };
+
+    const syncUi = () => {
+      const bankData = getLinkedBankAccountSheetData("usd");
+      const trust = CAYMAN_USD_DEPOSIT_TRUST_ACCOUNT;
+      const pageTitle = tr("How to deposit USD");
+
+      panel.setAttribute("aria-label", pageTitle);
+      if (els.pageTitle) els.pageTitle.textContent = pageTitle;
+      if (els.headerTitle) els.headerTitle.textContent = pageTitle;
+      if (els.step1Title) {
+        els.step1Title.textContent = tr(
+          "Send USD from your linked KGI Bank account via online banking",
+        );
+      }
+      if (els.linkedEyebrow) els.linkedEyebrow.textContent = tr("Linked bank account");
+      if (els.bankName) els.bankName.textContent = bankData.bankName;
+      if (els.bankAccount) {
+        els.bankAccount.textContent = WITHDRAW_PROTOTYPE_ACCOUNT_MASK;
+      }
+      if (els.verified) els.verified.textContent = tr("Verified");
+      if (els.step2Prefix) els.step2Prefix.textContent = tr("Send exactly ");
+      if (els.step2Suffix) {
+        els.step2Suffix.textContent = tr(" to this XREX bank account");
+      }
+      if (depositAmount != null && els.exactAmount) {
+        els.exactAmount.textContent = `${formatDepositUsdConfirmAmount(depositAmount)} USD`;
+      }
+      if (els.trustBank) els.trustBank.textContent = trust.bank;
+      if (els.trustAccount) els.trustAccount.textContent = trust.account;
+      if (els.trustReference) els.trustReference.textContent = trust.reference;
+      if (els.trustReferenceNote) {
+        els.trustReferenceNote.textContent = tr(trust.referenceNote);
+      }
+      if (els.trustSwift) els.trustSwift.textContent = trust.swift;
+      if (els.trustAccountName) els.trustAccountName.textContent = trust.accountName;
+      if (els.trustBankAddress) els.trustBankAddress.textContent = trust.bankAddress;
+      if (trustLabels.bank) trustLabels.bank.textContent = tr("Bank");
+      if (trustLabels.account) trustLabels.account.textContent = tr("Account No.");
+      if (trustLabels.reference) trustLabels.reference.textContent = tr("Reference ID");
+      if (trustLabels.swift) trustLabels.swift.textContent = tr("SWIFT code");
+      if (trustLabels.accountName) trustLabels.accountName.textContent = tr("Account name");
+      if (trustLabels.bankAddress) trustLabels.bankAddress.textContent = tr("Bank address");
+      if (els.shareAllLabel) els.shareAllLabel.textContent = tr("Copy all details");
+      if (els.step3Title) els.step3Title.textContent = tr("When it arrives");
+      if (els.arrivalTitle) {
+        els.arrivalTitle.textContent = tr("Usually arrives in 1–3 business days.");
+      }
+      if (els.arrivalSubtitle) {
+        els.arrivalSubtitle.textContent = tr(
+          "We'll notify you the moment your deposit arrives.",
+        );
+      }
+      if (els.helpTitle) els.helpTitle.textContent = tr("Not sure how to deposit?");
+      if (els.walkthroughTitle) els.walkthroughTitle.textContent = tr("Walk me through it");
+      if (els.walkthroughDesc) {
+        els.walkthroughDesc.textContent = tr("See step-by-step guide");
+      }
+      if (els.supportTitle) els.supportTitle.textContent = tr("Need help? Contact support");
+      if (els.supportDesc) els.supportDesc.textContent = tr("Our team is here to assist");
+      if (els.backFooter) els.backFooter.textContent = tr("Back");
+      if (els.doneBtn) els.doneBtn.textContent = tr("Done");
+    };
+
+    const resetScrollState = () => {
+      if (els.scroll) els.scroll.scrollTop = 0;
+      els.header?.classList.remove("is-title-visible");
+    };
+
+    const teardownTitleObserver = () => {
+      titleObserver?.disconnect();
+      titleObserver = null;
+      resetScrollState();
+    };
+
+    const setupTitleObserver = () => {
+      const { scroll, pageTitle, header } = els;
+      if (!scroll || !pageTitle || !header) return;
+      teardownTitleObserver();
+      titleObserver = new IntersectionObserver(
+        ([entry]) => {
+          header.classList.toggle("is-title-visible", !entry.isIntersecting);
+        },
+        { root: scroll, threshold: 0 },
+      );
+      titleObserver.observe(pageTitle);
+    };
+
+    const setOpen = (nextOpen, opts = {}) => {
+      if (nextOpen) {
+        syncUi();
+        panel.hidden = false;
+        requestAnimationFrame(() => panel.classList.add("is-open"));
+        return;
+      }
+      teardownTitleObserver();
+      if (opts.instant) {
+        panel.classList.add("is-instant");
+        panel.classList.remove("is-open");
+        panel.hidden = true;
+        void panel.offsetWidth;
+        panel.classList.remove("is-instant");
+        return;
+      }
+      panel.classList.remove("is-open");
+      const onEnd = () => {
+        if (!panel.classList.contains("is-open")) panel.hidden = true;
+        panel.removeEventListener("transitionend", onEnd);
+      };
+      panel.addEventListener("transitionend", onEnd);
+      setTimeout(onEnd, 400);
+    };
+
+    const showFieldCopiedSnackbar = (row) => {
+      const label =
+        row?.querySelector(".twd-deposit-instructions__trust-label")?.textContent?.trim() ||
+        "";
+      showSnackbar(tr("{Label} copied to clipboard", { Label: label }), {
+        variant: "copy",
+      });
+    };
+
+    panel
+      .querySelectorAll("[data-cayman-usd-deposit-copy]")
+      .forEach((row) => {
+        row.addEventListener("click", () => {
+          showFieldCopiedSnackbar(row);
+          if (
+            row.getAttribute("data-cayman-usd-deposit-copy") === "account" &&
+            isCopyReminderEnabled()
+          ) {
+            openCopyReminderSheet();
+          }
+        });
+      });
+    panel
+      .querySelector("[data-cayman-usd-deposit-instructions-share-all]")
+      ?.addEventListener("click", () => {
+        showSnackbar(tr("All details copied to clipboard"), { variant: "copy" });
+        if (isCopyReminderEnabled()) openCopyReminderSheet();
+      });
+    panel
+      .querySelectorAll(
+        "[data-cayman-usd-deposit-instructions-back], [data-cayman-usd-deposit-instructions-back-footer]",
+      )
+      .forEach((btn) => btn.addEventListener("click", onBack));
+    panel
+      .querySelector("[data-cayman-usd-deposit-instructions-done]")
+      ?.addEventListener("click", onDone);
+    panel
+      .querySelector("[data-cayman-usd-deposit-instructions-walkthrough]")
+      ?.addEventListener("click", openGuide);
+    panel
+      .querySelector("[data-cayman-usd-deposit-instructions-support]")
+      ?.addEventListener("click", () => showSnackbar("Not in prototype"));
+    panel
+      .querySelector('[aria-label="Support"]')
+      ?.addEventListener("click", () => showSnackbar("Not in prototype"));
+
+    document.addEventListener("prototype-locale-changed", () => {
+      if (!panel.classList.contains("is-open") || panel.hidden) return;
+      syncUi();
+    });
+
+    return {
+      open: ({ amount } = {}) => {
+        depositAmount = amount;
+        setOpen(true);
+        requestAnimationFrame(() => setupTitleObserver());
+      },
+      close: (opts) => setOpen(false, opts),
+      isOpen: () => Boolean(panel.classList.contains("is-open") && !panel.hidden),
+      syncUi,
     };
   };
 
@@ -7925,6 +8356,14 @@
       understoodBtn: sentPanel?.querySelector("[data-twd-deposit-sent-understood]"),
     };
 
+    let caymanUsdDepositInstructionsApi = {
+      open: () => {},
+      close: () => {},
+      isOpen: () => false,
+      syncUi: () => {},
+    };
+    let caymanUsdDepositGuidePanel = { open: () => {}, close: () => {} };
+
     const TWD_FIAT_SELECT_COPY = {
       add: {
         title: "Deposit TWD",
@@ -7943,6 +8382,7 @@
     let instructionsBackTarget = "select";
     let firstTimeConsentChecked = false;
     let depositFlowCurrency = "twd";
+    let caymanUsdDepositAmount = null;
     let depositSelectPanel = selectPanel;
     const usdSelectPanel = document.querySelector("[data-usd-deposit-select]");
     const hasTwdBank = () => (states.twdBankAccount ?? 1) >= 2;
@@ -8312,7 +8752,11 @@
       instructionsPanel
         ?.querySelectorAll(".twd-deposit-instructions__step-title")
         .forEach((el, index) => {
-          const keys = [copy.step1Title, "Send to this XREX bank account", "When it arrives"];
+          const keys = [
+            copy.step1Title,
+            "Send to this XREX bank account",
+            "When it arrives",
+          ];
           if (keys[index]) el.textContent = tr(keys[index]);
         });
       const linkedEyebrow = instructionsPanel?.querySelector(
@@ -8470,6 +8914,13 @@
       });
     };
 
+    const openCaymanUsdDepositInstructions = (amount) => {
+      caymanUsdDepositAmount = amount;
+      depositFlowCurrency = "usd";
+      caymanUsdDepositAmountApi?.close?.({ instant: true });
+      caymanUsdDepositInstructionsApi?.open?.({ amount });
+    };
+
     const openFirstTimeDeposit = ({ backTarget = "select" } = {}) => {
       closeDepositInstructions({ instant: true });
       instructionsBackTarget = backTarget;
@@ -8495,6 +8946,7 @@
       teardownDepositInstructionsTitleObserver();
       setPanelOpen(firstTimePanel, false, opts);
       setPanelOpen(instructionsPanel, false, opts);
+      caymanUsdDepositInstructionsApi?.close?.(opts);
     };
 
     const closeSentPanel = (opts = {}) => {
@@ -8524,6 +8976,8 @@
     const closeAll = (opts = {}) => {
       openFiatFlowPlaceholder?.close?.({ instant: Boolean(opts.instant) });
       caymanUsdDepositAmountApi?.close?.({ instant: Boolean(opts.instant) });
+      caymanUsdDepositInstructionsApi?.close?.({ instant: Boolean(opts.instant) });
+      caymanUsdDepositGuidePanel?.close?.({ instant: Boolean(opts.instant) });
       closeSentPanel(opts);
       closeDepositPanels(opts);
       if (depositFlowCurrency === "usd") {
@@ -8861,6 +9315,50 @@
 
     const twdDepositCopyReminderSheet = initTwdDepositCopyReminderSheet();
 
+    caymanUsdDepositGuidePanel = initCaymanUsdDepositGuidePanel({ showSnackbar });
+
+    const syncCaymanUsdDepositSentUi = () => {
+      const bankData = getLinkedBankAccountSheetData("usd");
+      const destination = formatWithdrawDestinationLabel(bankData.bankName);
+      if (sentEls.title) {
+        sentEls.title.textContent = tr("We'll notify you when deposits you've made arrive");
+      }
+      if (sentEls.sub) {
+        sentEls.sub.textContent = tr(
+          "After you transfer USD from {destination} to XREX, your deposit usually arrives in 1–3 business days.",
+          { destination },
+        );
+      }
+      if (sentEls.understoodBtn) {
+        sentEls.understoodBtn.textContent = tr("Understood");
+      }
+      if (sentPanel) {
+        sentPanel.setAttribute(
+          "aria-label",
+          tr("We'll notify you when deposits you've made arrive"),
+        );
+      }
+    };
+
+    caymanUsdDepositInstructionsApi = initCaymanUsdDepositInstructionsPanel({
+      showSnackbar,
+      onBack: () => {
+        caymanUsdDepositInstructionsApi.close();
+        caymanUsdDepositAmountApi?.open?.();
+      },
+      onDone: () => {
+        syncCaymanUsdDepositSentUi();
+        caymanUsdDepositInstructionsApi.close({ instant: true });
+        setPanelOpen(sentPanel, true);
+      },
+      openGuide: () => caymanUsdDepositGuidePanel.open(),
+      openCopyReminderSheet: () => twdDepositCopyReminderSheet.open(),
+      isCopyReminderEnabled: () => {
+        const input = document.querySelector("[data-prototype-deposit-copy-reminder]");
+        return Boolean(input?.checked);
+      },
+    });
+
     setupPanel
       ?.querySelector("[data-twd-deposit-setup-close]")
       ?.addEventListener("click", () => {
@@ -8924,6 +9422,10 @@
     firstTimePanel
       ?.querySelector("[data-twd-first-time-deposit-guide]")
       ?.addEventListener("click", () => {
+        if (isCaymanUsdFirstTime()) {
+          caymanUsdDepositGuidePanel.open();
+          return;
+        }
         twdDepositGuidePanel.open(depositFlowCurrency);
       });
     firstTimeEls.continueBtn?.addEventListener("click", () => {
@@ -9023,6 +9525,13 @@
         return;
       }
       setPanelOpen(depositSelectPanel || selectPanel, true);
+    });
+
+    document.addEventListener("cayman-usd-deposit-amount-confirmed", (event) => {
+      const amount = event.detail?.amount;
+      if (!Number.isFinite(amount) || amount <= 0) return;
+      depositFlowCurrency = "usd";
+      openCaymanUsdDepositInstructions(amount);
     });
 
     document.addEventListener("prototype-locale-changed", () => {
