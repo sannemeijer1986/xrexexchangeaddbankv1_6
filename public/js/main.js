@@ -8403,7 +8403,7 @@
         cardBankTitle: "Send TWD from your linked {destination}",
         cardDescs: [
           null,
-          "No counter transfers, Taiwan Pay, LINE Pay, JKoPay, ATM.",
+          "No counter transfers, Taiwan Pay, LINE Pay, JKoPay, or ATM — these will be returned.",
           null,
           null,
         ],
@@ -8427,7 +8427,7 @@
         step1Title: "Send TWD from your linked bank account via online banking",
         sentBtn: "Done",
         sentSub:
-          "After you transfer TWD from {destination} to XREX, your deposit usually arrives instantly, may take longer.",
+          "After you transfer TWD from {destination} to XREX, your deposit usually arrives instantly — it may occasionally take longer.",
         limitLink: "View your limits",
         helpTitle: "Not sure how to deposit?",
         helpItems: ["Walk me through it", "Contact live support"],
@@ -9100,7 +9100,7 @@
         {
           title: "Only send<br />via online banking",
           titleHtml: true,
-          desc: "Don't use counter transfers, Taiwan Pay, LINE Pay, JKoPay, ATM. They can't reach us and will be returned, sometimes with a fee.",
+          desc: "Don't use counter transfers, Taiwan Pay, LINE Pay, JKoPay, or ATM — they can't reach us and will be returned, sometimes with a fee.",
           visual: "assets/Illu_depositintro_2.svg",
         },
         {
@@ -9126,7 +9126,7 @@
         {
           title: "Only send<br />via online banking",
           titleHtml: true,
-          desc: "Please use online banking transfer to make deposits, as other transaction channels are not currently supported.",
+          desc: "Use online banking transfer to make deposits — other transfer methods aren't currently supported.",
           visual: "assets/Illu_depositintro_2.svg",
         },
         {
